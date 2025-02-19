@@ -1,67 +1,67 @@
-﻿[
-  {
-    "mssv": "SV001",
-    "hoTen": "Nguyễn Văn A",
-    "ngaySinh": "1998-01-01T00:00:00",
-    "gioiTinh": "Nam",
-    "khoa": "Khoa Luật",
-    "khoaHoc": "2016",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "123 Đường ABC",
-    "email": "nguyenvana@example.com",
-    "soDienThoai": "0123456789",
-    "tinhTrang": "Đang học"
-  },
+[
   {
     "mssv": "SV002",
-    "hoTen": "Trần Thị B",
+    "hoTen": "Tr\u1EA7n Th\u1ECB B\u00E1nh",
     "ngaySinh": "1999-02-02T00:00:00",
-    "gioiTinh": "Nữ",
-    "khoa": "Khoa Kinh Tế",
+    "gioiTinh": "N\u1EEF",
+    "khoa": "Khoa Ti\u1EBFng Anh th\u01B0\u01A1ng m\u1EA1i",
     "khoaHoc": "2017",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "456 Đường DEF",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "456 \u0110\u01B0\u1EDDng DEF",
     "email": "tranthib@example.com",
     "soDienThoai": "0987654321",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "\u0110ang h\u1ECDc"
   },
   {
     "mssv": "SV003",
-    "hoTen": "Lê Văn C",
+    "hoTen": "L\u00EA V\u0103n C",
     "ngaySinh": "1997-03-03T00:00:00",
     "gioiTinh": "Nam",
-    "khoa": "Khoa Công Nghệ Thông Tin",
+    "khoa": "Khoa C\u00F4ng Ngh\u1EC7 Th\u00F4ng Tin",
     "khoaHoc": "2015",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "789 Đường GHI",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "789 \u0110\u01B0\u1EDDng GHI",
     "email": "levanc@example.com",
     "soDienThoai": "0123456780",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "\u0110ang h\u1ECDc"
   },
   {
     "mssv": "SV004",
-    "hoTen": "Nguyễn Thị D",
+    "hoTen": "Nguy\u1EC5n Th\u1ECB D",
     "ngaySinh": "2000-04-04T00:00:00",
-    "gioiTinh": "Nữ",
-    "khoa": "Khoa Ngoại Ngữ",
+    "gioiTinh": "N\u1EEF",
+    "khoa": "Khoa Ngo\u1EA1i Ng\u1EEF",
     "khoaHoc": "2018",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "321 Đường JKL",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "321 \u0110\u01B0\u1EDDng JKL",
     "email": "nguyenthid@example.com",
     "soDienThoai": "0981234567",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "\u0110ang h\u1ECDc"
   },
   {
     "mssv": "SV005",
-    "hoTen": "Phạm Văn E",
+    "hoTen": "Ph\u1EA1m V\u0103n E",
     "ngaySinh": "1996-05-05T00:00:00",
     "gioiTinh": "Nam",
     "khoa": "Khoa Y",
     "khoaHoc": "2014",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "654 Đường MNO",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "654 \u0110\u01B0\u1EDDng MNO",
     "email": "phamvane@example.com",
     "soDienThoai": "0123456781",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "\u0110ang h\u1ECDc"
+  },
+  {
+    "mssv": "22127270",
+    "hoTen": "Nguy\u1EC5n Quang Minh",
+    "ngaySinh": "2004-04-27T12:00:00.8223176",
+    "gioiTinh": "Nam",
+    "khoa": "Khoa Ti\u1EBFng Nh\u1EADt",
+    "khoaHoc": "2022",
+    "chuongTrinh": "CLC",
+    "diaChi": "51 Saigon",
+    "email": "nqminh22@clc.fitus",
+    "soDienThoai": "0945580068",
+    "tinhTrang": "\u0110ang h\u1ECDc"
   }
 ]

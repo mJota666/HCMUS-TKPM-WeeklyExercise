@@ -33,6 +33,7 @@
                          Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button Content="Search" Command="{Binding SearchStudentCommand}" Margin="10,0,0,0" />
                 <Button Content="Load All" Command="{Binding LoadStudentsCommand}" Margin="10,0,0,0" />
+
             </StackPanel>
 
             <!-- Student List -->
@@ -48,8 +49,17 @@
                 </ListView.ItemTemplate>
             </ListView>
 
+
             <!-- Input Form for Adding/Updating a Student -->
             <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,10,0,0" Spacing="5">
+                <!-- Buttons for Command Actions -->
+                <StackPanel Orientation="Horizontal" Margin="20,0,0,0" Spacing="10" >
+                    <Button Content="New" Command="{Binding NewStudentCommand}" />
+                    <Button Content="Add" Command="{Binding AddStudentCommand}" />
+                    <Button Content="Update" Command="{Binding UpdateStudentCommand}" />
+                    <Button Content="Delete" Command="{Binding DeleteStudentCommand}" />
+                </StackPanel>
+
                 <TextBox Header="MSSV" 
                          Text="{Binding SelectedStudent.MSSV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Header="Họ tên" 
@@ -87,13 +97,7 @@
                     <ComboBoxItem Content="Đã thôi học"/>
                     <ComboBoxItem Content="Tạm dừng học"/>
                 </ComboBox>
-                <!-- Buttons for Command Actions -->
-                <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Spacing="10">
-                    <Button Content="New" Command="{Binding NewStudentCommand}" />
-                    <Button Content="Add" Command="{Binding AddStudentCommand}" />
-                    <Button Content="Update" Command="{Binding UpdateStudentCommand}" />
-                    <Button Content="Delete" Command="{Binding DeleteStudentCommand}" />
-                </StackPanel>
+
             </StackPanel>
         </Grid>
     </ScrollViewer>
