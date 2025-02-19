@@ -1,0 +1,101 @@
+﻿<Page
+    x:Class="StudentManagementApp.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:models="using:StudentManagementApp.Models"
+    xmlns:local="using:StudentManagementApp.ViewModels"
+    xmlns:conv="using:StudentManagementApp.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <!-- Converter resource for converting DateTime to DateTimeOffset -->
+    <Page.Resources>
+        <conv:DateTimeToDateTimeOffsetConverter x:Key="DateTimeConverter"/>
+    </Page.Resources>
+
+    <!-- Set the DataContext to an instance of MainViewModel -->
+    <Page.DataContext>
+        <local:MainViewModel/>
+    </Page.DataContext>
+
+    <ScrollViewer>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Search Section -->
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+                <TextBox Width="200" PlaceholderText="Search by MSSV or Name" 
+                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Content="Search" Command="{Binding SearchStudentCommand}" Margin="10,0,0,0" />
+                <Button Content="Load All" Command="{Binding LoadStudentsCommand}" Margin="10,0,0,0" />
+            </StackPanel>
+
+            <!-- Student List -->
+            <ListView Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate                            >
+                        <StackPanel x:ConnectionId='3' Orientation="Horizontal" Margin="0,2">
+                            <TextBlock x:ConnectionId='4'                      Width="80"/>
+                            <TextBlock x:ConnectionId='5'                       Width="150" Margin="10,0,0,0"/>
+                            <TextBlock x:ConnectionId='6'                       Width="200" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- Input Form for Adding/Updating a Student -->
+            <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,10,0,0" Spacing="5">
+                <TextBox Header="MSSV" 
+                         Text="{Binding SelectedStudent.MSSV, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Header="Họ tên" 
+                         Text="{Binding SelectedStudent.HoTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <!-- DatePicker uses a converter since its Date property is DateTimeOffset -->
+                <DatePicker Header="Ngày sinh" 
+                            Date="{Binding SelectedStudent.NgaySinh, Mode=TwoWay, Converter={StaticResource DateTimeConverter}}" />
+                <TextBox Header="Giới tính" 
+                         Text="{Binding SelectedStudent.GioiTinh, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <!-- ComboBox for Department ("Khoa") -->
+                <ComboBox Header="Khoa" 
+                          SelectedValue="{Binding SelectedStudent.Khoa, Mode=TwoWay}" 
+                          SelectedValuePath="Content">
+                    <ComboBoxItem Content="Khoa Luật"/>
+                    <ComboBoxItem Content="Khoa Tiếng Anh thương mại"/>
+                    <ComboBoxItem Content="Khoa Tiếng Nhật"/>
+                    <ComboBoxItem Content="Khoa Tiếng Pháp"/>
+                </ComboBox>
+                <TextBox Header="Khóa" 
+                         Text="{Binding SelectedStudent.KhoaHoc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Header="Chương trình" 
+                         Text="{Binding SelectedStudent.ChuongTrinh, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Header="Địa chỉ" 
+                         Text="{Binding SelectedStudent.DiaChi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Header="Email" 
+                         Text="{Binding SelectedStudent.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Header="Số điện thoại" 
+                         Text="{Binding SelectedStudent.SoDienThoai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <!-- ComboBox for Student Status ("Tình trạng") -->
+                <ComboBox Header="Tình trạng" 
+                          SelectedValue="{Binding SelectedStudent.TinhTrang, Mode=TwoWay}" 
+                          SelectedValuePath="Content">
+                    <ComboBoxItem Content="Đang học"/>
+                    <ComboBoxItem Content="Đã tốt nghiệp"/>
+                    <ComboBoxItem Content="Đã thôi học"/>
+                    <ComboBoxItem Content="Tạm dừng học"/>
+                </ComboBox>
+                <!-- Buttons for Command Actions -->
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Spacing="10">
+                    <Button Content="New" Command="{Binding NewStudentCommand}" />
+                    <Button Content="Add" Command="{Binding AddStudentCommand}" />
+                    <Button Content="Update" Command="{Binding UpdateStudentCommand}" />
+                    <Button Content="Delete" Command="{Binding DeleteStudentCommand}" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Page>
+

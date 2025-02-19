@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "StudentManagementApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "StudentManagementApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
