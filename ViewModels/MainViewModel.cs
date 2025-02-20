@@ -22,6 +22,7 @@ namespace StudentManagementApp.ViewModels
 
         public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
 
+
         // Backing field for SelectedStudent.
         private Student _selectedStudent = new Student();
         public Student SelectedStudent
@@ -228,10 +229,27 @@ namespace StudentManagementApp.ViewModels
         /// </summary>
         private void SearchStudent()
         {
-            var filtered = Students.Where(s =>
-                (!string.IsNullOrEmpty(s.MSSV) && s.MSSV.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-            ).ToList();
+            List<Student> filtered;
+            if (SearchText.Contains("+"))
+            {
+                string[] parts = SearchText.Split('+');
+                string param1 = parts[0];
+                string param2 = parts[1];
+                filtered = Students.Where(s =>
+                    ((!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(param1, StringComparison.OrdinalIgnoreCase)) && 
+                    (!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(param2, StringComparison.OrdinalIgnoreCase))) ||
+                    ((!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(param1, StringComparison.OrdinalIgnoreCase)) && 
+                    (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(param2, StringComparison.OrdinalIgnoreCase)))
+                ).ToList();
+            } else
+            {
+                filtered = Students.Where(s =>
+                    (!string.IsNullOrEmpty(s.MSSV) && s.MSSV.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                ).ToList();
+            }
+
 
             Students.Clear();
             foreach (var s in filtered)

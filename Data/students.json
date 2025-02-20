@@ -30,38 +30,12 @@
     "hoTen": "Lê Văn C",
     "ngaySinh": "1997-03-03T00:00:00",
     "gioiTinh": "Nam",
-    "khoa": "Khoa Công Nghệ Thông Tin",
+    "khoa": "Khoa Luật",
     "khoaHoc": "2015",
     "chuongTrinh": "Chính quy",
     "diaChi": "789 Đường GHI",
     "email": "levanc@example.com",
     "soDienThoai": "0123456780",
-    "tinhTrang": "Đang học"
-  },
-  {
-    "mssv": "SV004",
-    "hoTen": "Nguyễn Thị D",
-    "ngaySinh": "2000-04-04T00:00:00",
-    "gioiTinh": "Nữ",
-    "khoa": "Khoa Ngoại Ngữ",
-    "khoaHoc": "2018",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "321 Đường JKL",
-    "email": "nguyenthid@example.com",
-    "soDienThoai": "0981234567",
-    "tinhTrang": "Đang học"
-  },
-  {
-    "mssv": "SV005",
-    "hoTen": "Phạm Văn E",
-    "ngaySinh": "1996-05-05T00:00:00",
-    "gioiTinh": "Nam",
-    "khoa": "Khoa Y",
-    "khoaHoc": "2014",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "654 Đường MNO",
-    "email": "phamvane@example.com",
-    "soDienThoai": "0123456781",
     "tinhTrang": "Đang học"
   }
 ]
