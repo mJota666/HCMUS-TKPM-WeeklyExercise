@@ -38,6 +38,10 @@
                     <TextBlock Text="{Binding AppVersion}"/>
                     <TextBlock Text=" | Build Date: " FontWeight="SemiBold" Margin="10,0,0,0"/>
                     <TextBlock Text="{Binding BuildDate}"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10,0,0,0">
+                        <Button Content="JSON Export" Margin="10,0,0,0" Command="{Binding ExportJsonCommand}"/>
+                        <Button Content="CSV Export" Margin="10,0,0,0" Command="{Binding ExportCsvCommand}"/>
+                    </StackPanel>
                 </StackPanel>
                 
                 <Grid HorizontalAlignment="Stretch">
@@ -60,6 +64,7 @@
                         <Button x:ConnectionId='8' Content="Update Program" Margin="10,0,0,0"                                        />
                         <Button x:ConnectionId='9' Content="Update Student Status" Margin="10,0,0,0"                                               />
                     </StackPanel>
+
                 </Grid>
             </StackPanel>
 

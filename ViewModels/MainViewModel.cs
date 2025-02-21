@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -12,13 +14,31 @@ using StudentManagementApp.Services;
 using StudentManagementApp.Helpers;
 // Alias our custom RelayCommand to avoid conflicts with CommunityToolkit.Mvvm.Input.RelayCommand
 using CustomRelayCommand = StudentManagementApp.Utilities.RelayCommand;
+using System.Text;
+using Windows.Storage;
+using System.Text.Json;
+
+using StudentManagementApp.Extensions;
+
 
 namespace StudentManagementApp.ViewModels
 {
+
     public class MainViewModel : INotifyPropertyChanged
     {
+        // Export JSON and CSV
+        // App-version and Build Date
         public string AppVersion => Helpers.AppInfoHelper.GetAppVersion();
-        public string BuildDate => "2025-21-02";
+        public string BuildDate
+        {
+            get
+            {
+                var assembly = Assembly.GetExecutingAssembly();
+                // Get the last write time of the assembly file.
+                DateTime buildDate = File.GetLastWriteTime(assembly.Location);
+                return buildDate.ToString("yyyy-MM-dd");
+            }
+        }        
         // Singleton
         private static MainViewModel _instance = new MainViewModel();
         public static MainViewModel Instance => _instance;
@@ -197,8 +217,13 @@ namespace StudentManagementApp.ViewModels
 
         public ICommand RenameStudentStatusCommand { get; }
 
+        // Commands for Export.
+        public ICommand ExportJsonCommand { get; }
+        public ICommand ExportCsvCommand { get; }
+
         public MainViewModel()
         {
+
             // Capture the UI thread's DispatcherQueue.
             _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
@@ -270,7 +295,6 @@ namespace StudentManagementApp.ViewModels
                     }
                 }
             });
-
             AddStudentStatusCommand = new CustomRelayCommand(o =>
             {
                 if (o is string newStatus && !string.IsNullOrWhiteSpace(newStatus))
@@ -293,6 +317,10 @@ namespace StudentManagementApp.ViewModels
                     }
                 }
             });
+
+            // Export commands.
+            ExportJsonCommand = new CustomRelayCommand(async o => await ExportToJsonAsync());
+            ExportCsvCommand = new CustomRelayCommand(async o => await ExportToCsvAsync());
 
             // Load initial student data on a background thread.
             Task.Run(async () => await LoadStudentsAsync());
@@ -443,6 +471,100 @@ namespace StudentManagementApp.ViewModels
                 Students.Add(s);
             }
         }
+        //Export the current student list to a JSON file.
+        //private async Task ExportToJsonAsync()
+        //{
+        //    Debug.WriteLine("Export Json ne");
+        //    try
+        //    {
+        //        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+        //        StorageFile file = await localFolder.CreateFileAsync("students_export.json", CreationCollisionOption.ReplaceExisting);
+        //        using (Stream stream = await file.OpenStreamForWriteAsync())
+        //        {
+        //            var options = new JsonSerializerOptions { WriteIndented = true };
+        //            await JsonSerializer.SerializeAsync(stream, Students.ToList(), options);
+        //        }
+        //        Debug.WriteLine("Exported JSON successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine($"Error exporting JSON: {ex.Message}");
+        //    }
+        //}
+        private async Task ExportToJsonAsync()
+        {
+            try
+            {
+                // Get the local app data folder path using .NET APIs.
+                string localFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string filePath = Path.Combine(localFolderPath, "students_export.json");
+
+                var options = new JsonSerializerOptions { WriteIndented = true };
+
+                // Create or overwrite the file.
+                using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+                {
+                    await JsonSerializer.SerializeAsync(stream, Students.ToList(), options);
+                }
+                Debug.WriteLine($"Exported JSON successfully to {filePath}.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error exporting JSON: {ex.Message}");
+            }
+        }
+
+
+
+
+        // Export the current student list to a CSV file.
+        //private async Task ExportToCsvAsync()
+        //{
+        //    try
+        //    {
+        //        StringBuilder csvContent = new StringBuilder();
+        //        csvContent.AppendLine("MSSV,HoTen,NgaySinh,GioiTinh,Khoa,KhoaHoc,ChuongTrinh,DiaChi,Email,SoDienThoai,TinhTrang");
+        //        foreach (var student in Students)
+        //        {
+        //            csvContent.AppendLine($"{student.MSSV},{student.HoTen},{student.NgaySinh:yyyy-MM-dd},{student.GioiTinh},{student.Khoa},{student.KhoaHoc},{student.ChuongTrinh},{student.DiaChi},{student.Email},{student.SoDienThoai},{student.TinhTrang}");
+        //        }
+        //        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
+        //        StorageFile file = await localFolder.CreateFileAsync("students_export.csv", CreationCollisionOption.ReplaceExisting);
+        //        await FileIO.WriteTextAsync(file, csvContent.ToString());
+        //        Debug.WriteLine("Exported CSV successfully.");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine($"Error exporting CSV: {ex.Message}");
+        //    }
+        //}
+        private async Task ExportToCsvAsync()
+        {
+            try
+            {
+                StringBuilder csvContent = new StringBuilder();
+                csvContent.AppendLine("MSSV,HoTen,NgaySinh,GioiTinh,Khoa,KhoaHoc,ChuongTrinh,DiaChi,Email,SoDienThoai,TinhTrang");
+                foreach (var student in Students)
+                {
+                    csvContent.AppendLine($"{student.MSSV},{student.HoTen},{student.NgaySinh:yyyy-MM-dd},{student.GioiTinh},{student.Khoa},{student.KhoaHoc},{student.ChuongTrinh},{student.DiaChi},{student.Email},{student.SoDienThoai},{student.TinhTrang}");
+                }
+
+                string localFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string filePath = Path.Combine(localFolderPath, "students_export.csv");
+
+                // Write CSV content to file.
+                await File.WriteAllTextAsync(filePath, csvContent.ToString());
+                Debug.WriteLine($"Exported CSV successfully to {filePath}.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error exporting CSV: {ex.Message}");
+            }
+        }
+
+
+
+
 
         /// <summary>
         /// Helper method to notify commands that depend on the validity of SelectedStudent.
