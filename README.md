@@ -48,3 +48,7 @@
 ✅ **Thêm logging mechanism:**
 - File log.txt được lưu trong thư mục local cùng với các file Export
 	![Logging mechanism](Screenshots/FeaLogging.png)
+
+✅ **Show veresion và ngày build ứng dụng:**
+- Version và ngày Build được thể hiện ở trên cùng màn hình.
+	![Logging mechanism](Screenshots/Version.png)
