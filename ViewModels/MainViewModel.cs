@@ -9,6 +9,7 @@ using System.Windows.Input;
 using Microsoft.UI.Dispatching;
 using StudentManagementApp.Models;
 using StudentManagementApp.Services;
+using StudentManagementApp.Helpers;
 // Alias our custom RelayCommand to avoid conflicts with CommunityToolkit.Mvvm.Input.RelayCommand
 using CustomRelayCommand = StudentManagementApp.Utilities.RelayCommand;
 
@@ -16,6 +17,8 @@ namespace StudentManagementApp.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        public string AppVersion => Helpers.AppInfoHelper.GetAppVersion();
+        public string BuildDate => "2025-21-02";
         // Singleton
         private static MainViewModel _instance = new MainViewModel();
         public static MainViewModel Instance => _instance;

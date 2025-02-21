@@ -22,6 +22,7 @@
     </Page.DataContext>-->
 
 
+
     <ScrollViewer>
         <Grid Padding="10">
             <Grid.RowDefinitions>
@@ -32,6 +33,13 @@
 
             <!-- Search Section -->
             <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                    <TextBlock Text="Version: " FontWeight="SemiBold"/>
+                    <TextBlock Text="{Binding AppVersion}"/>
+                    <TextBlock Text=" | Build Date: " FontWeight="SemiBold" Margin="10,0,0,0"/>
+                    <TextBlock Text="{Binding BuildDate}"/>
+                </StackPanel>
+                
                 <Grid HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>

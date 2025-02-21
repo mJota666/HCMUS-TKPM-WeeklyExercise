@@ -1,5 +1,6 @@
 using Microsoft.UI.Xaml.Navigation;
 
+
 namespace StudentManagementApp
 {
     public partial class App : Application
