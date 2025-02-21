@@ -30,6 +30,9 @@
     <ItemGroup>
         <None Remove="Directory.Packages.props" />
         <None Remove="StudentManagementApp.slnx" />
+        <None Remove="Views\FacultyManagementPage.xaml" />
+        <None Remove="Views\ProgramManagementPage.xaml" />
+        <None Remove="Views\StudentStatusManagementPage.xaml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -57,6 +60,17 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Assets\" />
+    </ItemGroup>
+    <ItemGroup>
+      <Page Update="Views\FacultyManagementPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\ProgramManagementPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
+      <Page Update="Views\StudentStatusManagementPage.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
     </ItemGroup>
 
     <!-- 

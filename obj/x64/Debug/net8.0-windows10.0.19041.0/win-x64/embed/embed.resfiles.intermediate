@@ -1,2 +1,5 @@
 App.xbf
+Views\FacultyManagementPage.xbf
 Views\MainPage.xbf
+Views\ProgramManagementPage.xbf
+Views\StudentStatusManagementPage.xbf

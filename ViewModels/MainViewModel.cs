@@ -16,12 +16,39 @@ namespace StudentManagementApp.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        // Singleton
+        private static MainViewModel _instance = new MainViewModel();
+        public static MainViewModel Instance => _instance;
+
         private readonly StudentDataService _dataService;
         private readonly string _jsonFilePath = "Data/students.json";
         private readonly DispatcherQueue _dispatcherQueue;
 
+        // Student collection loaded from JSON.
         public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
 
+        // Lookup collections for Faculty, Student Status, and Program.
+        public ObservableCollection<string> Faculties { get; set; } = new ObservableCollection<string>
+        {
+            "Công nghệ Thông tin",
+            "Toán",
+            "Điện tử Viễn thông",
+            "Vật lý"
+        };
+
+        public ObservableCollection<string> StudentStatus { get; set; } = new ObservableCollection<string>
+        {
+            "Đang học",
+            "Đã tốt nghiệp"
+        };
+
+        public ObservableCollection<string> Programs { get; set; } = new ObservableCollection<string>
+        {
+            "Chất lượng cao",
+            "Cử nhân tài năng",
+            "Việt Pháp",
+            "Chính quy"
+        };
 
         // Backing field for SelectedStudent.
         private Student _selectedStudent = new Student();
@@ -32,14 +59,14 @@ namespace StudentManagementApp.ViewModels
             {
                 if (_selectedStudent != null)
                 {
-                    // Unsubscribe from previous student's property changed event.
+                    // Unsubscribe from previous student's PropertyChanged event.
                     _selectedStudent.PropertyChanged -= SelectedStudent_PropertyChanged;
                 }
 
                 _selectedStudent = value;
                 if (_selectedStudent != null)
                 {
-                    // Subscribe to the new student's property changed event.
+                    // Subscribe to new student's PropertyChanged event.
                     _selectedStudent.PropertyChanged += SelectedStudent_PropertyChanged;
                 }
 
@@ -60,7 +87,96 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        // Commands exposed to the View.
+        private string _selectedFaculty = string.Empty;
+        public string SelectedFaculty
+        {
+            get => _selectedFaculty;
+            set
+            {
+                if (_selectedFaculty != value)
+                {
+                    _selectedFaculty = value;
+                    OnPropertyChanged(nameof(SelectedFaculty));
+                    FacultyToRename = value;
+
+                }
+            }
+        }
+
+        private string _facultyToRename = string.Empty;
+        public string FacultyToRename
+        {
+            get => _facultyToRename;
+            set
+            {
+                if (_facultyToRename != value)
+                {
+                    _facultyToRename = value;
+                    OnPropertyChanged(nameof(FacultyToRename));
+                }
+            }
+        }
+
+        private string _selectedProgram = string.Empty;
+        public string SelectedProgram
+        {
+            get => _selectedProgram;
+            set
+            {
+                if (_selectedProgram != value)
+                {
+                    _selectedProgram = value;
+                    OnPropertyChanged(nameof(SelectedProgram));
+                    // Update the rename textbox value:
+                    ProgramToRename = value;
+                }
+            }
+        }
+
+        private string _programToRename = string.Empty;
+        public string ProgramToRename
+        {
+            get => _programToRename;
+            set
+            {
+                if (_programToRename != value)
+                {
+                    _programToRename = value;
+                    OnPropertyChanged(nameof(ProgramToRename));
+                }
+            }
+        }
+
+        private string _selectedStudentStatus = string.Empty;
+        public string SelectedStudentStatus
+        {
+            get => _selectedStudentStatus;
+            set
+            {
+                if (_selectedStudentStatus != value)
+                {
+                    _selectedStudentStatus = value;
+                    OnPropertyChanged(nameof(SelectedStudentStatus));
+                    StudentStatusToRename = value;
+                }
+            }
+        }
+        private string _studentStatusToRename = string.Empty;
+        public string StudentStatusToRename
+        {
+            get => _studentStatusToRename;
+            set
+            {
+                if (_studentStatusToRename != value)
+                {
+                    _studentStatusToRename = value;
+                    OnPropertyChanged(nameof(StudentStatusToRename));
+                }
+            }
+        }
+
+
+        // Commands for student management.
         public ICommand NewStudentCommand { get; }
         public ICommand AddStudentCommand { get; }
         public ICommand DeleteStudentCommand { get; }
@@ -68,18 +184,28 @@ namespace StudentManagementApp.ViewModels
         public ICommand SearchStudentCommand { get; }
         public ICommand LoadStudentsCommand { get; }
 
+        // Commands for updating lookup lists.
+        public ICommand AddFacultyCommand { get; }
+        public ICommand RenameFacultyCommand { get; }
+
+        public ICommand AddProgramCommand { get; }
+        public ICommand RenameProgramCommand { get; }
+        public ICommand AddStudentStatusCommand { get; }
+
+        public ICommand RenameStudentStatusCommand { get; }
+
         public MainViewModel()
         {
-            // Get the UI thread's DispatcherQueue.
+            // Capture the UI thread's DispatcherQueue.
             _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
-            // Initialize the data service with the file path.
+            // Initialize the data service with the JSON file path.
             _dataService = new StudentDataService(_jsonFilePath);
 
             // Create a new student for data entry.
             SelectedStudent = new Student();
 
-            // Initialize commands with their Execute and CanExecute delegates.
+            // Initialize student commands.
             NewStudentCommand = new CustomRelayCommand(o =>
             {
                 SelectedStudent = new Student();
@@ -90,7 +216,82 @@ namespace StudentManagementApp.ViewModels
             SearchStudentCommand = new CustomRelayCommand(o => SearchStudent());
             LoadStudentsCommand = new CustomRelayCommand(async o => await LoadStudentsAsync());
 
-            // Load initial data on a background thread.
+            // Initialize lookup commands.
+            AddFacultyCommand = new CustomRelayCommand(o =>
+            {
+                if (o is string newFaculty && !string.IsNullOrWhiteSpace(newFaculty))
+                {
+                    if (!Faculties.Contains(newFaculty))
+                    {
+                        Faculties.Add(newFaculty);
+                    }
+                }
+            });
+            RenameFacultyCommand = new CustomRelayCommand(o =>
+            {
+
+                // Rename the selected faculty to the value in FacultyToRename.
+                if (!string.IsNullOrWhiteSpace(FacultyToRename) && !string.IsNullOrEmpty(SelectedFaculty))
+                {
+                    int index = Faculties.IndexOf(SelectedFaculty);
+                    if (index >= 0)
+                    {
+                        // Update the collection.
+                        Faculties[index] = FacultyToRename;
+                        // Update SelectedFaculty to reflect the new name.
+                        SelectedFaculty = FacultyToRename;
+                    }
+                }
+            });
+            AddProgramCommand = new CustomRelayCommand(o =>
+            {
+                if (o is string newProgram && !string.IsNullOrWhiteSpace(newProgram))
+                {
+                    if (!Programs.Contains(newProgram))
+                    {
+                        Programs.Add(newProgram);
+                    }
+                }
+            });
+            RenameProgramCommand = new CustomRelayCommand(o =>
+            {
+                if (!string.IsNullOrEmpty(ProgramToRename) && !string.IsNullOrEmpty(SelectedProgram))
+                {
+                    int index = Programs.IndexOf(SelectedProgram);
+                    if (index >= 0)
+                    {
+                        // Update the collection
+                        Programs[index] = ProgramToRename;
+                        // Update SelectedProgram to reflect the new name
+                        SelectedProgram = ProgramToRename;
+                    }
+                }
+            });
+
+            AddStudentStatusCommand = new CustomRelayCommand(o =>
+            {
+                if (o is string newStatus && !string.IsNullOrWhiteSpace(newStatus))
+                {
+                    if (!StudentStatus.Contains(newStatus))
+                    {
+                        StudentStatus.Add(newStatus);
+                    }
+                }
+            });
+            RenameStudentStatusCommand = new CustomRelayCommand(o => 
+            {
+                if (!string.IsNullOrEmpty(StudentStatusToRename) && !string.IsNullOrEmpty(SelectedStudentStatus))
+                {
+                    int index = StudentStatus.IndexOf(SelectedStudentStatus);
+                    if (index >= 0)
+                    {
+                        StudentStatus[index] = StudentStatusToRename;
+                        SelectedStudentStatus = StudentStatusToRename;
+                    }
+                }
+            });
+
+            // Load initial student data on a background thread.
             Task.Run(async () => await LoadStudentsAsync());
         }
 
@@ -98,7 +299,7 @@ namespace StudentManagementApp.ViewModels
         /// Event handler that is triggered when any property on SelectedStudent changes.
         /// This forces a re-check of the command conditions.
         /// </summary>
-        private void SelectedStudent_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void SelectedStudent_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             Debug.WriteLine($"Property '{e.PropertyName}' changed on SelectedStudent.");
             RaiseCommandCanExecuteChanged();
@@ -140,36 +341,34 @@ namespace StudentManagementApp.ViewModels
             // Ensure SelectedStudent is not null.
             if (SelectedStudent == null)
                 return false;
-            Debug.WriteLine(3);
 
             // Validate required fields.
             if (string.IsNullOrWhiteSpace(SelectedStudent.MSSV) ||
                 string.IsNullOrWhiteSpace(SelectedStudent.HoTen) ||
                 SelectedStudent.NgaySinh == default)
                 return false;
-            Debug.WriteLine(4);
 
             // Validate email format.
             if (!Regex.IsMatch(SelectedStudent.Email ?? "", @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 return false;
-            Debug.WriteLine(5);
 
             // Validate phone number (must be 10 or 11 digits).
             if (!Regex.IsMatch(SelectedStudent.SoDienThoai ?? "", @"^\d{10,11}$"))
                 return false;
-            Debug.WriteLine(6);
 
-            // Validate department name.
-            string[] validKhoa = new string[] { "Khoa Luật", "Khoa Tiếng Anh thương mại", "Khoa Tiếng Nhật", "Khoa Tiếng Pháp" };
-            if (!validKhoa.Contains(SelectedStudent.Khoa))
+            // Validate Program: The SelectedStudent.ChuongTrinh must exist in the Programs list.
+            if (!Programs.Contains(SelectedStudent.ChuongTrinh))
                 return false;
-            Debug.WriteLine(7);
+
+            // Validate Faculty: The SelectedStudent.Khoa must exist in the Faculties list.
+            if (!Faculties.Contains(SelectedStudent.Khoa))
+                return false;
 
             // Validate student status.
-            string[] validTinhTrang = new string[] { "Đang học", "Đã tốt nghiệp", "Đã thôi học", "Tạm dừng học" };
-            if (!validTinhTrang.Contains(SelectedStudent.TinhTrang))
+            if (!StudentStatus.Contains(SelectedStudent.TinhTrang))
                 return false;
-            Debug.WriteLine(8);
+
+            Debug.WriteLine("Validation passed");
             return true;
         }
 
@@ -225,31 +424,15 @@ namespace StudentManagementApp.ViewModels
         }
 
         /// <summary>
-        /// Searches the Students collection by MSSV or HoTen based on the SearchText.
+        /// Searches the Students collection by MSSV, HoTen, or Khoa based on the SearchText.
         /// </summary>
         private void SearchStudent()
         {
-            List<Student> filtered;
-            if (SearchText.Contains("+"))
-            {
-                string[] parts = SearchText.Split('+');
-                string param1 = parts[0];
-                string param2 = parts[1];
-                filtered = Students.Where(s =>
-                    ((!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(param1, StringComparison.OrdinalIgnoreCase)) && 
-                    (!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(param2, StringComparison.OrdinalIgnoreCase))) ||
-                    ((!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(param1, StringComparison.OrdinalIgnoreCase)) && 
-                    (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(param2, StringComparison.OrdinalIgnoreCase)))
-                ).ToList();
-            } else
-            {
-                filtered = Students.Where(s =>
-                    (!string.IsNullOrEmpty(s.MSSV) && s.MSSV.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                    (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                    (!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                ).ToList();
-            }
-
+            var filtered = Students.Where(s =>
+                (!string.IsNullOrEmpty(s.MSSV) && s.MSSV.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+            ).ToList();
 
             Students.Clear();
             foreach (var s in filtered)

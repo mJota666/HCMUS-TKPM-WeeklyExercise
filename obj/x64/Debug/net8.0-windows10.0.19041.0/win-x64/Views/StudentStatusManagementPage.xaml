@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="StudentManagementApp.Views.StudentStatusManagementPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:StudentManagementApp.ViewModels">
+
+    <StackPanel Padding="20"
+                Spacing="10">
+        <!-- Back button -->
+        <Button x:ConnectionId='2' Content="Back"                          />
+        <!-- List current Student Status -->
+        <ListView x:ConnectionId='3' ItemsSource="{Binding StudentStatus}"
+                  SelectedItem="{Binding SelectedStudentStatus, Mode=TwoWay}"
+                  x:Name="FacultyListView"/>
+        <!-- Section for adding new Student Status -->
+        <TextBlock Text="Add Student Status Name" 
+                   FontWeight="SemiBold"/>
+        <TextBox x:ConnectionId='4' x:Name="NewStudentStatusTextBox"
+                 Width="250"
+                 PlaceholderText="New Student Status Name"/>
+        <Button Content="Add Student Status" 
+                Command="{Binding AddStudentStatusCommand}" 
+                CommandParameter="{Binding Text, ElementName=NewStudentStatusTextBox}" />
+            <!-- Section for renaming the selected Student Status -->
+        <TextBlock Text="Rename Student Status" FontWeight="SemiBold"/>
+        <TextBox x:ConnectionId='5' x:Name="RenameStudentStatusTextBox"
+                 Width="250"
+                 Text="{Binding StudentStatusToRename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 PlaceholderText="Rename Student Status Name"/>
+        <Button Content="Rename" 
+                Command="{Binding RenameStudentStatusCommand}"
+                CommandParameter="{Binding Text, ElementName=RenameStudentStatusTextBox}"/>
+    </StackPanel>
+
+</Page>
+

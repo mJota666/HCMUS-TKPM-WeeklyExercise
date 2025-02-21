@@ -226,7 +226,7 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
         
         private void InitTypeTables()
         {
-            _typeNameTable = new string[22];
+            _typeNameTable = new string[18];
             _typeNameTable[0] = "Microsoft.UI.Xaml.Controls.XamlControlsResources";
             _typeNameTable[1] = "Microsoft.UI.Xaml.ResourceDictionary";
             _typeNameTable[2] = "Object";
@@ -234,23 +234,19 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
             _typeNameTable[4] = "Windows.UI.Color";
             _typeNameTable[5] = "System.ValueType";
             _typeNameTable[6] = "Byte";
-            _typeNameTable[7] = "StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter";
-            _typeNameTable[8] = "StudentManagementApp.ViewModels.MainViewModel";
-            _typeNameTable[9] = "System.Collections.ObjectModel.ObservableCollection`1<StudentManagementApp.Models.Student>";
-            _typeNameTable[10] = "System.Collections.ObjectModel.Collection`1<StudentManagementApp.Models.Student>";
-            _typeNameTable[11] = "StudentManagementApp.Models.Student";
-            _typeNameTable[12] = "String";
-            _typeNameTable[13] = "System.DateTime";
-            _typeNameTable[14] = "System.Windows.Input.ICommand";
-            _typeNameTable[15] = "StudentManagementApp.Views.MainPage";
-            _typeNameTable[16] = "Microsoft.UI.Xaml.Controls.Page";
-            _typeNameTable[17] = "Microsoft.UI.Xaml.Controls.UserControl";
-            _typeNameTable[18] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
-            _typeNameTable[19] = "Microsoft.UI.Xaml.DependencyObject";
-            _typeNameTable[20] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
-            _typeNameTable[21] = "Int32";
+            _typeNameTable[7] = "StudentManagementApp.Views.FacultyManagementPage";
+            _typeNameTable[8] = "Microsoft.UI.Xaml.Controls.Page";
+            _typeNameTable[9] = "Microsoft.UI.Xaml.Controls.UserControl";
+            _typeNameTable[10] = "StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter";
+            _typeNameTable[11] = "StudentManagementApp.Views.MainPage";
+            _typeNameTable[12] = "StudentManagementApp.Views.ProgramManagementPage";
+            _typeNameTable[13] = "StudentManagementApp.Views.StudentStatusManagementPage";
+            _typeNameTable[14] = "Microsoft.UI.Xaml.Controls.TreeViewNode";
+            _typeNameTable[15] = "Microsoft.UI.Xaml.DependencyObject";
+            _typeNameTable[16] = "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>";
+            _typeNameTable[17] = "Int32";
 
-            _typeTable = new global::System.Type[22];
+            _typeTable = new global::System.Type[18];
             _typeTable[0] = typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources);
             _typeTable[1] = typeof(global::Microsoft.UI.Xaml.ResourceDictionary);
             _typeTable[2] = typeof(global::System.Object);
@@ -258,21 +254,17 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
             _typeTable[4] = typeof(global::Windows.UI.Color);
             _typeTable[5] = typeof(global::System.ValueType);
             _typeTable[6] = typeof(global::System.Byte);
-            _typeTable[7] = typeof(global::StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter);
-            _typeTable[8] = typeof(global::StudentManagementApp.ViewModels.MainViewModel);
-            _typeTable[9] = typeof(global::System.Collections.ObjectModel.ObservableCollection<global::StudentManagementApp.Models.Student>);
-            _typeTable[10] = typeof(global::System.Collections.ObjectModel.Collection<global::StudentManagementApp.Models.Student>);
-            _typeTable[11] = typeof(global::StudentManagementApp.Models.Student);
-            _typeTable[12] = typeof(global::System.String);
-            _typeTable[13] = typeof(global::System.DateTime);
-            _typeTable[14] = typeof(global::System.Windows.Input.ICommand);
-            _typeTable[15] = typeof(global::StudentManagementApp.Views.MainPage);
-            _typeTable[16] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
-            _typeTable[17] = typeof(global::Microsoft.UI.Xaml.Controls.UserControl);
-            _typeTable[18] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
-            _typeTable[19] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
-            _typeTable[20] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
-            _typeTable[21] = typeof(global::System.Int32);
+            _typeTable[7] = typeof(global::StudentManagementApp.Views.FacultyManagementPage);
+            _typeTable[8] = typeof(global::Microsoft.UI.Xaml.Controls.Page);
+            _typeTable[9] = typeof(global::Microsoft.UI.Xaml.Controls.UserControl);
+            _typeTable[10] = typeof(global::StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter);
+            _typeTable[11] = typeof(global::StudentManagementApp.Views.MainPage);
+            _typeTable[12] = typeof(global::StudentManagementApp.Views.ProgramManagementPage);
+            _typeTable[13] = typeof(global::StudentManagementApp.Views.StudentStatusManagementPage);
+            _typeTable[14] = typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode);
+            _typeTable[15] = typeof(global::Microsoft.UI.Xaml.DependencyObject);
+            _typeTable[16] = typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>);
+            _typeTable[17] = typeof(global::System.Int32);
         }
 
         private int LookupTypeIndexByName(string typeName)
@@ -308,27 +300,23 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
         }
 
         private object Activate_0_XamlControlsResources() { return new global::Microsoft.UI.Xaml.Controls.XamlControlsResources(); }
-        private object Activate_7_DateTimeToDateTimeOffsetConverter() { return new global::StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter(); }
-        private object Activate_8_MainViewModel() { return new global::StudentManagementApp.ViewModels.MainViewModel(); }
-        private object Activate_9_ObservableCollection() { return new global::System.Collections.ObjectModel.ObservableCollection<global::StudentManagementApp.Models.Student>(); }
-        private object Activate_10_Collection() { return new global::System.Collections.ObjectModel.Collection<global::StudentManagementApp.Models.Student>(); }
-        private object Activate_11_Student() { return new global::StudentManagementApp.Models.Student(); }
-        private object Activate_15_MainPage() { return new global::StudentManagementApp.Views.MainPage(); }
-        private object Activate_18_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
+        private object Activate_7_FacultyManagementPage() { return new global::StudentManagementApp.Views.FacultyManagementPage(); }
+        private object Activate_10_DateTimeToDateTimeOffsetConverter() { return new global::StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter(); }
+        private object Activate_11_MainPage() { return new global::StudentManagementApp.Views.MainPage(); }
+        private object Activate_12_ProgramManagementPage() { return new global::StudentManagementApp.Views.ProgramManagementPage(); }
+        private object Activate_13_StudentStatusManagementPage() { return new global::StudentManagementApp.Views.StudentStatusManagementPage(); }
+        private object Activate_14_TreeViewNode() { return new global::Microsoft.UI.Xaml.Controls.TreeViewNode(); }
         private void StaticInitializer_0_XamlControlsResources() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.XamlControlsResources).TypeHandle);
         private void StaticInitializer_4_Color() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Windows.UI.Color).TypeHandle);
         private void StaticInitializer_5_ValueType() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.ValueType).TypeHandle);
         private void StaticInitializer_6_Byte() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Byte).TypeHandle);
-        private void StaticInitializer_7_DateTimeToDateTimeOffsetConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter).TypeHandle);
-        private void StaticInitializer_8_MainViewModel() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.ViewModels.MainViewModel).TypeHandle);
-        private void StaticInitializer_9_ObservableCollection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.ObservableCollection<global::StudentManagementApp.Models.Student>).TypeHandle);
-        private void StaticInitializer_10_Collection() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.ObjectModel.Collection<global::StudentManagementApp.Models.Student>).TypeHandle);
-        private void StaticInitializer_11_Student() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.Models.Student).TypeHandle);
-        private void StaticInitializer_13_DateTime() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.DateTime).TypeHandle);
-        private void StaticInitializer_14_ICommand() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Windows.Input.ICommand).TypeHandle);
-        private void StaticInitializer_15_MainPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.Views.MainPage).TypeHandle);
-        private void StaticInitializer_18_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
-        private void StaticInitializer_20_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
+        private void StaticInitializer_7_FacultyManagementPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.Views.FacultyManagementPage).TypeHandle);
+        private void StaticInitializer_10_DateTimeToDateTimeOffsetConverter() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter).TypeHandle);
+        private void StaticInitializer_11_MainPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.Views.MainPage).TypeHandle);
+        private void StaticInitializer_12_ProgramManagementPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.Views.ProgramManagementPage).TypeHandle);
+        private void StaticInitializer_13_StudentStatusManagementPage() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::StudentManagementApp.Views.StudentStatusManagementPage).TypeHandle);
+        private void StaticInitializer_14_TreeViewNode() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::Microsoft.UI.Xaml.Controls.TreeViewNode).TypeHandle);
+        private void StaticInitializer_16_IList() => global::System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(global::System.Collections.Generic.IList<global::Microsoft.UI.Xaml.Controls.TreeViewNode>).TypeHandle);
         private void MapAdd_0_XamlControlsResources(object instance, object key, object item)
         {
             var collection = (global::System.Collections.Generic.IDictionary<global::System.Object, global::System.Object>)instance;
@@ -336,19 +324,7 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
             var newItem = (global::System.Object)item;
             collection.Add(newKey, newItem);
         }
-        private void VectorAdd_9_ObservableCollection(object instance, object item)
-        {
-            var collection = (global::System.Collections.Generic.ICollection<global::StudentManagementApp.Models.Student>)instance;
-            var newItem = (global::StudentManagementApp.Models.Student)item;
-            collection.Add(newItem);
-        }
-        private void VectorAdd_10_Collection(object instance, object item)
-        {
-            var collection = (global::System.Collections.Generic.ICollection<global::StudentManagementApp.Models.Student>)instance;
-            var newItem = (global::StudentManagementApp.Models.Student)item;
-            collection.Add(newItem);
-        }
-        private void VectorAdd_20_IList(object instance, object item)
+        private void VectorAdd_16_IList(object instance, object item)
         {
             var collection = (global::System.Collections.Generic.ICollection<global::Microsoft.UI.Xaml.Controls.TreeViewNode>)instance;
             var newItem = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)item;
@@ -409,104 +385,58 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 7:   //  StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter
-                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_7_DateTimeToDateTimeOffsetConverter;
-                userType.StaticInitializer = StaticInitializer_7_DateTimeToDateTimeOffsetConverter;
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 8:   //  StudentManagementApp.ViewModels.MainViewModel
-                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_8_MainViewModel;
-                userType.StaticInitializer = StaticInitializer_8_MainViewModel;
-                userType.AddMemberName("Students");
-                userType.AddMemberName("SelectedStudent");
-                userType.AddMemberName("SearchText");
-                userType.AddMemberName("NewStudentCommand");
-                userType.AddMemberName("AddStudentCommand");
-                userType.AddMemberName("DeleteStudentCommand");
-                userType.AddMemberName("UpdateStudentCommand");
-                userType.AddMemberName("SearchStudentCommand");
-                userType.AddMemberName("LoadStudentsCommand");
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 9:   //  System.Collections.ObjectModel.ObservableCollection`1<StudentManagementApp.Models.Student>
-                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.Collections.ObjectModel.Collection`1<StudentManagementApp.Models.Student>"));
-                userType.StaticInitializer = StaticInitializer_9_ObservableCollection;
-                userType.CollectionAdd = VectorAdd_9_ObservableCollection;
-                userType.SetIsReturnTypeStub();
-                xamlType = userType;
-                break;
-
-            case 10:   //  System.Collections.ObjectModel.Collection`1<StudentManagementApp.Models.Student>
-                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_10_Collection;
-                userType.StaticInitializer = StaticInitializer_10_Collection;
-                userType.CollectionAdd = VectorAdd_10_Collection;
-                xamlType = userType;
-                break;
-
-            case 11:   //  StudentManagementApp.Models.Student
-                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
-                userType.Activator = Activate_11_Student;
-                userType.StaticInitializer = StaticInitializer_11_Student;
-                userType.AddMemberName("MSSV");
-                userType.AddMemberName("HoTen");
-                userType.AddMemberName("NgaySinh");
-                userType.AddMemberName("GioiTinh");
-                userType.AddMemberName("Khoa");
-                userType.AddMemberName("KhoaHoc");
-                userType.AddMemberName("ChuongTrinh");
-                userType.AddMemberName("DiaChi");
-                userType.AddMemberName("Email");
-                userType.AddMemberName("SoDienThoai");
-                userType.AddMemberName("TinhTrang");
-                userType.SetIsLocalType();
-                xamlType = userType;
-                break;
-
-            case 12:   //  String
-                xamlType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
-                break;
-
-            case 13:   //  System.DateTime
-                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("System.ValueType"));
-                userType.StaticInitializer = StaticInitializer_13_DateTime;
-                userType.SetIsReturnTypeStub();
-                xamlType = userType;
-                break;
-
-            case 14:   //  System.Windows.Input.ICommand
-                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_14_ICommand;
-                userType.SetIsReturnTypeStub();
-                xamlType = userType;
-                break;
-
-            case 15:   //  StudentManagementApp.Views.MainPage
+            case 7:   //  StudentManagementApp.Views.FacultyManagementPage
                 userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
-                userType.Activator = Activate_15_MainPage;
-                userType.StaticInitializer = StaticInitializer_15_MainPage;
+                userType.Activator = Activate_7_FacultyManagementPage;
+                userType.StaticInitializer = StaticInitializer_7_FacultyManagementPage;
                 userType.SetIsLocalType();
                 xamlType = userType;
                 break;
 
-            case 16:   //  Microsoft.UI.Xaml.Controls.Page
+            case 8:   //  Microsoft.UI.Xaml.Controls.Page
                 xamlType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 17:   //  Microsoft.UI.Xaml.Controls.UserControl
+            case 9:   //  Microsoft.UI.Xaml.Controls.UserControl
                 xamlType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 18:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
+            case 10:   //  StudentManagementApp.Converters.DateTimeToDateTimeOffsetConverter
+                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Object"));
+                userType.Activator = Activate_10_DateTimeToDateTimeOffsetConverter;
+                userType.StaticInitializer = StaticInitializer_10_DateTimeToDateTimeOffsetConverter;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 11:   //  StudentManagementApp.Views.MainPage
+                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_11_MainPage;
+                userType.StaticInitializer = StaticInitializer_11_MainPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 12:   //  StudentManagementApp.Views.ProgramManagementPage
+                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_12_ProgramManagementPage;
+                userType.StaticInitializer = StaticInitializer_12_ProgramManagementPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 13:   //  StudentManagementApp.Views.StudentStatusManagementPage
+                userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.Controls.Page"));
+                userType.Activator = Activate_13_StudentStatusManagementPage;
+                userType.StaticInitializer = StaticInitializer_13_StudentStatusManagementPage;
+                userType.SetIsLocalType();
+                xamlType = userType;
+                break;
+
+            case 14:   //  Microsoft.UI.Xaml.Controls.TreeViewNode
                 userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, GetXamlTypeByName("Microsoft.UI.Xaml.DependencyObject"));
-                userType.Activator = Activate_18_TreeViewNode;
-                userType.StaticInitializer = StaticInitializer_18_TreeViewNode;
+                userType.Activator = Activate_14_TreeViewNode;
+                userType.StaticInitializer = StaticInitializer_14_TreeViewNode;
                 userType.AddMemberName("Children");
                 userType.AddMemberName("Content");
                 userType.AddMemberName("Depth");
@@ -518,19 +448,19 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
                 xamlType = userType;
                 break;
 
-            case 19:   //  Microsoft.UI.Xaml.DependencyObject
+            case 15:   //  Microsoft.UI.Xaml.DependencyObject
                 xamlType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
 
-            case 20:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
+            case 16:   //  System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>
                 userType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType(this, typeName, type, null);
-                userType.StaticInitializer = StaticInitializer_20_IList;
-                userType.CollectionAdd = VectorAdd_20_IList;
+                userType.StaticInitializer = StaticInitializer_16_IList;
+                userType.CollectionAdd = VectorAdd_16_IList;
                 userType.SetIsReturnTypeStub();
                 xamlType = userType;
                 break;
 
-            case 21:   //  Int32
+            case 17:   //  Int32
                 xamlType = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlSystemBaseType(typeName, type);
                 break;
             }
@@ -642,222 +572,52 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
             var that = (global::Windows.UI.Color)instance;
             that.B = (global::System.Byte)Value;
         }
-        private object get_5_MainViewModel_Students(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.Students;
-        }
-        private void set_5_MainViewModel_Students(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            that.Students = (global::System.Collections.ObjectModel.ObservableCollection<global::StudentManagementApp.Models.Student>)Value;
-        }
-        private object get_6_Student_MSSV(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.MSSV;
-        }
-        private void set_6_Student_MSSV(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.MSSV = (global::System.String)Value;
-        }
-        private object get_7_Student_HoTen(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.HoTen;
-        }
-        private void set_7_Student_HoTen(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.HoTen = (global::System.String)Value;
-        }
-        private object get_8_Student_NgaySinh(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.NgaySinh;
-        }
-        private void set_8_Student_NgaySinh(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.NgaySinh = (global::System.DateTime)Value;
-        }
-        private object get_9_Student_GioiTinh(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.GioiTinh;
-        }
-        private void set_9_Student_GioiTinh(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.GioiTinh = (global::System.String)Value;
-        }
-        private object get_10_Student_Khoa(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.Khoa;
-        }
-        private void set_10_Student_Khoa(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.Khoa = (global::System.String)Value;
-        }
-        private object get_11_Student_KhoaHoc(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.KhoaHoc;
-        }
-        private void set_11_Student_KhoaHoc(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.KhoaHoc = (global::System.String)Value;
-        }
-        private object get_12_Student_ChuongTrinh(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.ChuongTrinh;
-        }
-        private void set_12_Student_ChuongTrinh(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.ChuongTrinh = (global::System.String)Value;
-        }
-        private object get_13_Student_DiaChi(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.DiaChi;
-        }
-        private void set_13_Student_DiaChi(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.DiaChi = (global::System.String)Value;
-        }
-        private object get_14_Student_Email(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.Email;
-        }
-        private void set_14_Student_Email(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.Email = (global::System.String)Value;
-        }
-        private object get_15_Student_SoDienThoai(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.SoDienThoai;
-        }
-        private void set_15_Student_SoDienThoai(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.SoDienThoai = (global::System.String)Value;
-        }
-        private object get_16_Student_TinhTrang(object instance)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            return that.TinhTrang;
-        }
-        private void set_16_Student_TinhTrang(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.Models.Student)instance;
-            that.TinhTrang = (global::System.String)Value;
-        }
-        private object get_17_MainViewModel_SelectedStudent(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.SelectedStudent;
-        }
-        private void set_17_MainViewModel_SelectedStudent(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            that.SelectedStudent = (global::StudentManagementApp.Models.Student)Value;
-        }
-        private object get_18_MainViewModel_SearchText(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.SearchText;
-        }
-        private void set_18_MainViewModel_SearchText(object instance, object Value)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            that.SearchText = (global::System.String)Value;
-        }
-        private object get_19_MainViewModel_NewStudentCommand(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.NewStudentCommand;
-        }
-        private object get_20_MainViewModel_AddStudentCommand(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.AddStudentCommand;
-        }
-        private object get_21_MainViewModel_DeleteStudentCommand(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.DeleteStudentCommand;
-        }
-        private object get_22_MainViewModel_UpdateStudentCommand(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.UpdateStudentCommand;
-        }
-        private object get_23_MainViewModel_SearchStudentCommand(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.SearchStudentCommand;
-        }
-        private object get_24_MainViewModel_LoadStudentsCommand(object instance)
-        {
-            var that = (global::StudentManagementApp.ViewModels.MainViewModel)instance;
-            return that.LoadStudentsCommand;
-        }
-        private object get_25_TreeViewNode_Children(object instance)
+        private object get_5_TreeViewNode_Children(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Children;
         }
-        private object get_26_TreeViewNode_Content(object instance)
+        private object get_6_TreeViewNode_Content(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Content;
         }
-        private void set_26_TreeViewNode_Content(object instance, object Value)
+        private void set_6_TreeViewNode_Content(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.Content = (global::System.Object)Value;
         }
-        private object get_27_TreeViewNode_Depth(object instance)
+        private object get_7_TreeViewNode_Depth(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Depth;
         }
-        private object get_28_TreeViewNode_HasChildren(object instance)
+        private object get_8_TreeViewNode_HasChildren(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.HasChildren;
         }
-        private object get_29_TreeViewNode_HasUnrealizedChildren(object instance)
+        private object get_9_TreeViewNode_HasUnrealizedChildren(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.HasUnrealizedChildren;
         }
-        private void set_29_TreeViewNode_HasUnrealizedChildren(object instance, object Value)
+        private void set_9_TreeViewNode_HasUnrealizedChildren(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.HasUnrealizedChildren = (global::System.Boolean)Value;
         }
-        private object get_30_TreeViewNode_IsExpanded(object instance)
+        private object get_10_TreeViewNode_IsExpanded(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.IsExpanded;
         }
-        private void set_30_TreeViewNode_IsExpanded(object instance, object Value)
+        private void set_10_TreeViewNode_IsExpanded(object instance, object Value)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             that.IsExpanded = (global::System.Boolean)Value;
         }
-        private object get_31_TreeViewNode_Parent(object instance)
+        private object get_11_TreeViewNode_Parent(object instance)
         {
             var that = (global::Microsoft.UI.Xaml.Controls.TreeViewNode)instance;
             return that.Parent;
@@ -901,170 +661,50 @@ namespace StudentManagementApp.StudentManagementApp_XamlTypeInfo
                 xamlMember.Getter = get_4_Color_B;
                 xamlMember.Setter = set_4_Color_B;
                 break;
-            case "StudentManagementApp.ViewModels.MainViewModel.Students":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "Students", "System.Collections.ObjectModel.ObservableCollection`1<StudentManagementApp.Models.Student>");
-                xamlMember.Getter = get_5_MainViewModel_Students;
-                xamlMember.Setter = set_5_MainViewModel_Students;
-                break;
-            case "StudentManagementApp.Models.Student.MSSV":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "MSSV", "String");
-                xamlMember.Getter = get_6_Student_MSSV;
-                xamlMember.Setter = set_6_Student_MSSV;
-                break;
-            case "StudentManagementApp.Models.Student.HoTen":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "HoTen", "String");
-                xamlMember.Getter = get_7_Student_HoTen;
-                xamlMember.Setter = set_7_Student_HoTen;
-                break;
-            case "StudentManagementApp.Models.Student.NgaySinh":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "NgaySinh", "System.DateTime");
-                xamlMember.Getter = get_8_Student_NgaySinh;
-                xamlMember.Setter = set_8_Student_NgaySinh;
-                break;
-            case "StudentManagementApp.Models.Student.GioiTinh":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "GioiTinh", "String");
-                xamlMember.Getter = get_9_Student_GioiTinh;
-                xamlMember.Setter = set_9_Student_GioiTinh;
-                break;
-            case "StudentManagementApp.Models.Student.Khoa":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "Khoa", "String");
-                xamlMember.Getter = get_10_Student_Khoa;
-                xamlMember.Setter = set_10_Student_Khoa;
-                break;
-            case "StudentManagementApp.Models.Student.KhoaHoc":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "KhoaHoc", "String");
-                xamlMember.Getter = get_11_Student_KhoaHoc;
-                xamlMember.Setter = set_11_Student_KhoaHoc;
-                break;
-            case "StudentManagementApp.Models.Student.ChuongTrinh":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "ChuongTrinh", "String");
-                xamlMember.Getter = get_12_Student_ChuongTrinh;
-                xamlMember.Setter = set_12_Student_ChuongTrinh;
-                break;
-            case "StudentManagementApp.Models.Student.DiaChi":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "DiaChi", "String");
-                xamlMember.Getter = get_13_Student_DiaChi;
-                xamlMember.Setter = set_13_Student_DiaChi;
-                break;
-            case "StudentManagementApp.Models.Student.Email":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "Email", "String");
-                xamlMember.Getter = get_14_Student_Email;
-                xamlMember.Setter = set_14_Student_Email;
-                break;
-            case "StudentManagementApp.Models.Student.SoDienThoai":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "SoDienThoai", "String");
-                xamlMember.Getter = get_15_Student_SoDienThoai;
-                xamlMember.Setter = set_15_Student_SoDienThoai;
-                break;
-            case "StudentManagementApp.Models.Student.TinhTrang":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.Models.Student");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "TinhTrang", "String");
-                xamlMember.Getter = get_16_Student_TinhTrang;
-                xamlMember.Setter = set_16_Student_TinhTrang;
-                break;
-            case "StudentManagementApp.ViewModels.MainViewModel.SelectedStudent":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "SelectedStudent", "StudentManagementApp.Models.Student");
-                xamlMember.Getter = get_17_MainViewModel_SelectedStudent;
-                xamlMember.Setter = set_17_MainViewModel_SelectedStudent;
-                break;
-            case "StudentManagementApp.ViewModels.MainViewModel.SearchText":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "SearchText", "String");
-                xamlMember.Getter = get_18_MainViewModel_SearchText;
-                xamlMember.Setter = set_18_MainViewModel_SearchText;
-                break;
-            case "StudentManagementApp.ViewModels.MainViewModel.NewStudentCommand":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "NewStudentCommand", "System.Windows.Input.ICommand");
-                xamlMember.Getter = get_19_MainViewModel_NewStudentCommand;
-                xamlMember.SetIsReadOnly();
-                break;
-            case "StudentManagementApp.ViewModels.MainViewModel.AddStudentCommand":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "AddStudentCommand", "System.Windows.Input.ICommand");
-                xamlMember.Getter = get_20_MainViewModel_AddStudentCommand;
-                xamlMember.SetIsReadOnly();
-                break;
-            case "StudentManagementApp.ViewModels.MainViewModel.DeleteStudentCommand":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "DeleteStudentCommand", "System.Windows.Input.ICommand");
-                xamlMember.Getter = get_21_MainViewModel_DeleteStudentCommand;
-                xamlMember.SetIsReadOnly();
-                break;
-            case "StudentManagementApp.ViewModels.MainViewModel.UpdateStudentCommand":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "UpdateStudentCommand", "System.Windows.Input.ICommand");
-                xamlMember.Getter = get_22_MainViewModel_UpdateStudentCommand;
-                xamlMember.SetIsReadOnly();
-                break;
-            case "StudentManagementApp.ViewModels.MainViewModel.SearchStudentCommand":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "SearchStudentCommand", "System.Windows.Input.ICommand");
-                xamlMember.Getter = get_23_MainViewModel_SearchStudentCommand;
-                xamlMember.SetIsReadOnly();
-                break;
-            case "StudentManagementApp.ViewModels.MainViewModel.LoadStudentsCommand":
-                userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("StudentManagementApp.ViewModels.MainViewModel");
-                xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "LoadStudentsCommand", "System.Windows.Input.ICommand");
-                xamlMember.Getter = get_24_MainViewModel_LoadStudentsCommand;
-                xamlMember.SetIsReadOnly();
-                break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Children":
                 userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "Children", "System.Collections.Generic.IList`1<Microsoft.UI.Xaml.Controls.TreeViewNode>");
-                xamlMember.Getter = get_25_TreeViewNode_Children;
+                xamlMember.Getter = get_5_TreeViewNode_Children;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Content":
                 userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "Content", "Object");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_26_TreeViewNode_Content;
-                xamlMember.Setter = set_26_TreeViewNode_Content;
+                xamlMember.Getter = get_6_TreeViewNode_Content;
+                xamlMember.Setter = set_6_TreeViewNode_Content;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Depth":
                 userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "Depth", "Int32");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_27_TreeViewNode_Depth;
+                xamlMember.Getter = get_7_TreeViewNode_Depth;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasChildren":
                 userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "HasChildren", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_28_TreeViewNode_HasChildren;
+                xamlMember.Getter = get_8_TreeViewNode_HasChildren;
                 xamlMember.SetIsReadOnly();
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.HasUnrealizedChildren":
                 userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "HasUnrealizedChildren", "Boolean");
-                xamlMember.Getter = get_29_TreeViewNode_HasUnrealizedChildren;
-                xamlMember.Setter = set_29_TreeViewNode_HasUnrealizedChildren;
+                xamlMember.Getter = get_9_TreeViewNode_HasUnrealizedChildren;
+                xamlMember.Setter = set_9_TreeViewNode_HasUnrealizedChildren;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.IsExpanded":
                 userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "IsExpanded", "Boolean");
                 xamlMember.SetIsDependencyProperty();
-                xamlMember.Getter = get_30_TreeViewNode_IsExpanded;
-                xamlMember.Setter = set_30_TreeViewNode_IsExpanded;
+                xamlMember.Getter = get_10_TreeViewNode_IsExpanded;
+                xamlMember.Setter = set_10_TreeViewNode_IsExpanded;
                 break;
             case "Microsoft.UI.Xaml.Controls.TreeViewNode.Parent":
                 userType = (global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlUserType)GetXamlTypeByName("Microsoft.UI.Xaml.Controls.TreeViewNode");
                 xamlMember = new global::StudentManagementApp.StudentManagementApp_XamlTypeInfo.XamlMember(this, "Parent", "Microsoft.UI.Xaml.Controls.TreeViewNode");
-                xamlMember.Getter = get_31_TreeViewNode_Parent;
+                xamlMember.Getter = get_11_TreeViewNode_Parent;
                 xamlMember.SetIsReadOnly();
                 break;
             }

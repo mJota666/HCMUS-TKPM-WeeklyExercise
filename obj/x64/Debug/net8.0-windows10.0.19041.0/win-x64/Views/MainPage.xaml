@@ -13,11 +13,14 @@
     <Page.Resources>
         <conv:DateTimeToDateTimeOffsetConverter x:Key="DateTimeConverter"/>
     </Page.Resources>
-
     <!-- Set the DataContext to an instance of MainViewModel -->
-    <Page.DataContext>
+    <!--<Page.DataContext>
         <local:MainViewModel/>
-    </Page.DataContext>
+    </Page.DataContext>-->
+    <!--<Page.DataContext>
+        <local:MainViewModel x:Key="MainVM" />
+    </Page.DataContext>-->
+
 
     <ScrollViewer>
         <Grid Padding="10">
@@ -28,13 +31,30 @@
             </Grid.RowDefinitions>
 
             <!-- Search Section -->
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-                <TextBox Width="200" PlaceholderText="Search by MSSV or Name or Falcuty" 
-                         Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Content="Search" Command="{Binding SearchStudentCommand}" Margin="10,0,0,0" />
-                <Button Content="Load All" Command="{Binding LoadStudentsCommand}" Margin="10,0,0,0" />
+            <StackPanel Grid.Row="0" Margin="0,0,0,10">
+                <Grid HorizontalAlignment="Stretch">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
+                    <!-- Left side: Search and Load -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <TextBox Width="200" PlaceholderText="Search by MSSV or Name or Faculty" 
+                                 Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Content="Search" Command="{Binding SearchStudentCommand}" Margin="10,0,0,0" />
+                        <Button Content="Load All" Command="{Binding LoadStudentsCommand}" Margin="10,0,0,0" />
+                    </StackPanel>
+
+                    <!-- Right side: Update Buttons -->
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+                        <Button x:ConnectionId='7' Content="Update Faculty" Margin="10,0,0,0"                                        />
+                        <Button x:ConnectionId='8' Content="Update Program" Margin="10,0,0,0"                                        />
+                        <Button x:ConnectionId='9' Content="Update Student Status" Margin="10,0,0,0"                                               />
+                    </StackPanel>
+                </Grid>
             </StackPanel>
+
 
             <!-- Student List -->
             <ListView Grid.Row="1" ItemsSource="{Binding Students}" SelectedItem="{Binding SelectedStudent, Mode=TwoWay}">
@@ -70,19 +90,22 @@
                 <TextBox Header="Giới tính" 
                          Text="{Binding SelectedStudent.GioiTinh, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <!-- ComboBox for Department ("Khoa") -->
-                <ComboBox Header="Khoa" 
-                          SelectedValue="{Binding SelectedStudent.Khoa, Mode=TwoWay}" 
-                          SelectedValuePath="Content">
-                    <ComboBoxItem Content="Khoa Luật"/>
-                    <ComboBoxItem Content="Khoa Tiếng Anh thương mại"/>
-                    <ComboBoxItem Content="Khoa Tiếng Nhật"/>
-                    <ComboBoxItem Content="Khoa Tiếng Pháp"/>
+                <ComboBox Header="Khoa"
+                           ItemsSource="{Binding Faculties}"
+                           SelectedValue="{Binding SelectedStudent.Khoa, Mode=TwoWay}"
+                           >
                 </ComboBox>
+                
                 <TextBox Header="Khóa" 
                          Text="{Binding SelectedStudent.KhoaHoc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Header="Chương trình" 
-                         Text="{Binding SelectedStudent.ChuongTrinh, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBox Header="Địa chỉ" 
+
+                <!-- ComboBox for Program ("Chương trình") -->
+                <ComboBox Header="Chương trình"
+                          ItemsSource="{Binding Programs}"
+                          SelectedValue="{Binding SelectedStudent.ChuongTrinh, Mode=TwoWay}">
+                </ComboBox>
+
+                        <TextBox Header="Địa chỉ" 
                          Text="{Binding SelectedStudent.DiaChi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Header="Email" 
                          Text="{Binding SelectedStudent.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -90,12 +113,9 @@
                          Text="{Binding SelectedStudent.SoDienThoai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <!-- ComboBox for Student Status ("Tình trạng") -->
                 <ComboBox Header="Tình trạng" 
+                          ItemsSource="{Binding StudentStatus}"
                           SelectedValue="{Binding SelectedStudent.TinhTrang, Mode=TwoWay}" 
-                          SelectedValuePath="Content">
-                    <ComboBoxItem Content="Đang học"/>
-                    <ComboBoxItem Content="Đã tốt nghiệp"/>
-                    <ComboBoxItem Content="Đã thôi học"/>
-                    <ComboBoxItem Content="Tạm dừng học"/>
+                          >
                 </ComboBox>
 
             </StackPanel>
