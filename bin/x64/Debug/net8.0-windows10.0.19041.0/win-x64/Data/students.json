@@ -1,41 +1,41 @@
-﻿[
+[
   {
     "mssv": "SV001",
-    "hoTen": "Nguyễn Văn A",
+    "hoTen": "Nguy\u1EC5n V\u0103n A",
     "ngaySinh": "1998-01-01T00:00:00",
     "gioiTinh": "Nam",
-    "khoa": "Toán",
+    "khoa": "To\u00E1n",
     "khoaHoc": "2016",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "123 Đường ABC",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "123 \u0110\u01B0\u1EDDng ABC",
     "email": "nguyenvana@example.com",
     "soDienThoai": "0123456789",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "\u0110ang h\u1ECDc"
   },
   {
     "mssv": "SV002",
-    "hoTen": "Trần Thị B",
+    "hoTen": "Tr\u1EA7n Th\u1ECB B",
     "ngaySinh": "1999-02-02T00:00:00",
-    "gioiTinh": "Nữ",
-    "khoa": "Toán",
+    "gioiTinh": "N\u1EEF",
+    "khoa": "To\u00E1n",
     "khoaHoc": "2017",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "456 Đường DEF",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "456 \u0110\u01B0\u1EDDng DEF",
     "email": "tranthib@example.com",
     "soDienThoai": "0987654321",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "\u0110ang h\u1ECDc"
   },
   {
     "mssv": "SV003",
-    "hoTen": "Lê Văn C",
+    "hoTen": "L\u00EA V\u0103n C",
     "ngaySinh": "1997-03-03T00:00:00",
     "gioiTinh": "Nam",
-    "khoa": "Toán",
+    "khoa": "To\u00E1n",
     "khoaHoc": "2015",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "789 Đường GHI",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "789 \u0110\u01B0\u1EDDng GHI",
     "email": "levanc@example.com",
     "soDienThoai": "0123456780",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "\u0110\u00E3 t\u1ED1t nghi\u1EC7p"
   }
 ]

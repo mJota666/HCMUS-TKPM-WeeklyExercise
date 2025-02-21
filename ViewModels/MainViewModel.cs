@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -14,32 +15,26 @@ using StudentManagementApp.Services;
 using StudentManagementApp.Helpers;
 // Alias our custom RelayCommand to avoid conflicts with CommunityToolkit.Mvvm.Input.RelayCommand
 using CustomRelayCommand = StudentManagementApp.Utilities.RelayCommand;
-using System.Text;
-using Windows.Storage;
 using System.Text.Json;
-
-using StudentManagementApp.Extensions;
-
+using Windows.Storage;
 
 namespace StudentManagementApp.ViewModels
 {
-
     public class MainViewModel : INotifyPropertyChanged
     {
-        // Export JSON and CSV
-        // App-version and Build Date
-        public string AppVersion => Helpers.AppInfoHelper.GetAppVersion();
+        // App version and build date.
+        public string AppVersion => AppInfoHelper.GetAppVersion();
         public string BuildDate
         {
             get
             {
                 var assembly = Assembly.GetExecutingAssembly();
-                // Get the last write time of the assembly file.
                 DateTime buildDate = File.GetLastWriteTime(assembly.Location);
                 return buildDate.ToString("yyyy-MM-dd");
             }
-        }        
-        // Singleton
+        }
+
+        // Singleton instance.
         private static MainViewModel _instance = new MainViewModel();
         public static MainViewModel Instance => _instance;
 
@@ -50,7 +45,7 @@ namespace StudentManagementApp.ViewModels
         // Student collection loaded from JSON.
         public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
 
-        // Lookup collections for Faculty, Student Status, and Program.
+        // Lookup collections.
         public ObservableCollection<string> Faculties { get; set; } = new ObservableCollection<string>
         {
             "Công nghệ Thông tin",
@@ -73,7 +68,7 @@ namespace StudentManagementApp.ViewModels
             "Chính quy"
         };
 
-        // Backing field for SelectedStudent.
+        // Student management properties.
         private Student _selectedStudent = new Student();
         public Student SelectedStudent
         {
@@ -82,18 +77,15 @@ namespace StudentManagementApp.ViewModels
             {
                 if (_selectedStudent != null)
                 {
-                    // Unsubscribe from previous student's PropertyChanged event.
                     _selectedStudent.PropertyChanged -= SelectedStudent_PropertyChanged;
                 }
-
                 _selectedStudent = value;
                 if (_selectedStudent != null)
                 {
-                    // Subscribe to new student's PropertyChanged event.
                     _selectedStudent.PropertyChanged += SelectedStudent_PropertyChanged;
                 }
-
                 Debug.WriteLine("SelectedStudent changed");
+                SimpleLogger.LogInfo("SelectedStudent changed.");
                 OnPropertyChanged(nameof(SelectedStudent));
                 RaiseCommandCanExecuteChanged();
             }
@@ -103,13 +95,10 @@ namespace StudentManagementApp.ViewModels
         public string SearchText
         {
             get => _searchText;
-            set
-            {
-                _searchText = value;
-                OnPropertyChanged(nameof(SearchText));
-            }
+            set { _searchText = value; OnPropertyChanged(nameof(SearchText)); }
         }
 
+        // Lookup management for Faculty.
         private string _selectedFaculty = string.Empty;
         public string SelectedFaculty
         {
@@ -121,7 +110,6 @@ namespace StudentManagementApp.ViewModels
                     _selectedFaculty = value;
                     OnPropertyChanged(nameof(SelectedFaculty));
                     FacultyToRename = value;
-
                 }
             }
         }
@@ -140,6 +128,7 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
+        // Lookup management for Program.
         private string _selectedProgram = string.Empty;
         public string SelectedProgram
         {
@@ -150,7 +139,6 @@ namespace StudentManagementApp.ViewModels
                 {
                     _selectedProgram = value;
                     OnPropertyChanged(nameof(SelectedProgram));
-                    // Update the rename textbox value:
                     ProgramToRename = value;
                 }
             }
@@ -170,6 +158,7 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
+        // Lookup management for Student Status.
         private string _selectedStudentStatus = string.Empty;
         public string SelectedStudentStatus
         {
@@ -184,6 +173,7 @@ namespace StudentManagementApp.ViewModels
                 }
             }
         }
+
         private string _studentStatusToRename = string.Empty;
         public string StudentStatusToRename
         {
@@ -198,7 +188,6 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-
         // Commands for student management.
         public ICommand NewStudentCommand { get; }
         public ICommand AddStudentCommand { get; }
@@ -207,14 +196,12 @@ namespace StudentManagementApp.ViewModels
         public ICommand SearchStudentCommand { get; }
         public ICommand LoadStudentsCommand { get; }
 
-        // Commands for updating lookup lists.
+        // Commands for lookup management.
         public ICommand AddFacultyCommand { get; }
         public ICommand RenameFacultyCommand { get; }
-
         public ICommand AddProgramCommand { get; }
         public ICommand RenameProgramCommand { get; }
         public ICommand AddStudentStatusCommand { get; }
-
         public ICommand RenameStudentStatusCommand { get; }
 
         // Commands for Export.
@@ -223,21 +210,17 @@ namespace StudentManagementApp.ViewModels
 
         public MainViewModel()
         {
-
-            // Capture the UI thread's DispatcherQueue.
+            // Capture the UI thread's dispatcher.
             _dispatcherQueue = DispatcherQueue.GetForCurrentThread();
 
-            // Initialize the data service with the JSON file path.
+            // Initialize the data service.
             _dataService = new StudentDataService(_jsonFilePath);
 
             // Create a new student for data entry.
             SelectedStudent = new Student();
 
-            // Initialize student commands.
-            NewStudentCommand = new CustomRelayCommand(o =>
-            {
-                SelectedStudent = new Student();
-            });
+            // Initialize student management commands.
+            NewStudentCommand = new CustomRelayCommand(o => SelectedStudent = new Student());
             AddStudentCommand = new CustomRelayCommand(o => AddStudent(), o => CanAddOrUpdateStudent());
             DeleteStudentCommand = new CustomRelayCommand(o => DeleteStudent(), o => SelectedStudent != null);
             UpdateStudentCommand = new CustomRelayCommand(o => UpdateStudent(), o => SelectedStudent != null && CanAddOrUpdateStudent());
@@ -252,22 +235,20 @@ namespace StudentManagementApp.ViewModels
                     if (!Faculties.Contains(newFaculty))
                     {
                         Faculties.Add(newFaculty);
+                        SimpleLogger.LogInfo($"Added new faculty: {newFaculty}");
                     }
                 }
             });
             RenameFacultyCommand = new CustomRelayCommand(o =>
             {
-
-                // Rename the selected faculty to the value in FacultyToRename.
                 if (!string.IsNullOrWhiteSpace(FacultyToRename) && !string.IsNullOrEmpty(SelectedFaculty))
                 {
                     int index = Faculties.IndexOf(SelectedFaculty);
                     if (index >= 0)
                     {
-                        // Update the collection.
                         Faculties[index] = FacultyToRename;
-                        // Update SelectedFaculty to reflect the new name.
                         SelectedFaculty = FacultyToRename;
+                        SimpleLogger.LogInfo($"Renamed faculty to: {FacultyToRename}");
                     }
                 }
             });
@@ -278,6 +259,7 @@ namespace StudentManagementApp.ViewModels
                     if (!Programs.Contains(newProgram))
                     {
                         Programs.Add(newProgram);
+                        SimpleLogger.LogInfo($"Added new program: {newProgram}");
                     }
                 }
             });
@@ -288,10 +270,9 @@ namespace StudentManagementApp.ViewModels
                     int index = Programs.IndexOf(SelectedProgram);
                     if (index >= 0)
                     {
-                        // Update the collection
                         Programs[index] = ProgramToRename;
-                        // Update SelectedProgram to reflect the new name
                         SelectedProgram = ProgramToRename;
+                        SimpleLogger.LogInfo($"Renamed program to: {ProgramToRename}");
                     }
                 }
             });
@@ -302,10 +283,11 @@ namespace StudentManagementApp.ViewModels
                     if (!StudentStatus.Contains(newStatus))
                     {
                         StudentStatus.Add(newStatus);
+                        SimpleLogger.LogInfo($"Added new student status: {newStatus}");
                     }
                 }
             });
-            RenameStudentStatusCommand = new CustomRelayCommand(o => 
+            RenameStudentStatusCommand = new CustomRelayCommand(o =>
             {
                 if (!string.IsNullOrEmpty(StudentStatusToRename) && !string.IsNullOrEmpty(SelectedStudentStatus))
                 {
@@ -314,11 +296,12 @@ namespace StudentManagementApp.ViewModels
                     {
                         StudentStatus[index] = StudentStatusToRename;
                         SelectedStudentStatus = StudentStatusToRename;
+                        SimpleLogger.LogInfo($"Renamed student status to: {StudentStatusToRename}");
                     }
                 }
             });
 
-            // Export commands.
+            // Initialize export commands.
             ExportJsonCommand = new CustomRelayCommand(async o => await ExportToJsonAsync());
             ExportCsvCommand = new CustomRelayCommand(async o => await ExportToCsvAsync());
 
@@ -326,19 +309,13 @@ namespace StudentManagementApp.ViewModels
             Task.Run(async () => await LoadStudentsAsync());
         }
 
-        /// <summary>
-        /// Event handler that is triggered when any property on SelectedStudent changes.
-        /// This forces a re-check of the command conditions.
-        /// </summary>
         private void SelectedStudent_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             Debug.WriteLine($"Property '{e.PropertyName}' changed on SelectedStudent.");
+            SimpleLogger.LogInfo($"Property '{e.PropertyName}' changed on SelectedStudent.");
             RaiseCommandCanExecuteChanged();
         }
 
-        /// <summary>
-        /// Loads the student list asynchronously from the data service.
-        /// </summary>
         private async Task LoadStudentsAsync()
         {
             var students = await _dataService.LoadStudentsAsync();
@@ -351,67 +328,53 @@ namespace StudentManagementApp.ViewModels
                     Students.Add(s);
                 }
             });
+            SimpleLogger.LogInfo($"Loaded {students.Count} students.");
         }
 
-        /// <summary>
-        /// Saves the student list asynchronously using the data service.
-        /// </summary>
         private async void SaveStudentsAsync()
         {
             await _dataService.SaveStudentsAsync(Students.ToList());
             Debug.WriteLine("Saving Successfully!");
+            SimpleLogger.LogInfo($"Saved {Students.Count} students successfully.");
         }
 
-        /// <summary>
-        /// Validates the input values for adding or updating a student.
-        /// The Add and Update buttons are enabled only if this method returns true.
-        /// </summary>
         private bool CanAddOrUpdateStudent()
         {
             Debug.WriteLine("Validating input for Add/Update");
-            // Ensure SelectedStudent is not null.
             if (SelectedStudent == null)
                 return false;
 
-            // Validate required fields.
             if (string.IsNullOrWhiteSpace(SelectedStudent.MSSV) ||
                 string.IsNullOrWhiteSpace(SelectedStudent.HoTen) ||
                 SelectedStudent.NgaySinh == default)
                 return false;
 
-            // Validate email format.
             if (!Regex.IsMatch(SelectedStudent.Email ?? "", @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 return false;
 
-            // Validate phone number (must be 10 or 11 digits).
             if (!Regex.IsMatch(SelectedStudent.SoDienThoai ?? "", @"^\d{10,11}$"))
                 return false;
 
-            // Validate Program: The SelectedStudent.ChuongTrinh must exist in the Programs list.
             if (!Programs.Contains(SelectedStudent.ChuongTrinh))
                 return false;
 
-            // Validate Faculty: The SelectedStudent.Khoa must exist in the Faculties list.
             if (!Faculties.Contains(SelectedStudent.Khoa))
                 return false;
 
-            // Validate student status.
             if (!StudentStatus.Contains(SelectedStudent.TinhTrang))
                 return false;
 
             Debug.WriteLine("Validation passed");
+            SimpleLogger.LogInfo("Validation passed for Add/Update.");
             return true;
         }
 
-        /// <summary>
-        /// Adds a new student if the student with the same MSSV does not already exist.
-        /// </summary>
         private void AddStudent()
         {
-            // Check for duplicate MSSV.
             if (Students.Any(s => s.MSSV == SelectedStudent.MSSV))
             {
                 Debug.WriteLine("Duplicate MSSV found. Student not added.");
+                SimpleLogger.LogWarning($"Duplicate MSSV {SelectedStudent.MSSV} found. Student not added.");
                 return;
             }
 
@@ -432,31 +395,25 @@ namespace StudentManagementApp.ViewModels
 
             Students.Add(newStudent);
             SaveStudentsAsync();
+            SimpleLogger.LogInfo($"Added new student with MSSV: {newStudent.MSSV}");
         }
 
-        /// <summary>
-        /// Deletes the currently selected student.
-        /// </summary>
         private void DeleteStudent()
         {
             if (SelectedStudent != null)
             {
                 Students.Remove(SelectedStudent);
                 SaveStudentsAsync();
+                SimpleLogger.LogInfo("Deleted a student.");
             }
         }
 
-        /// <summary>
-        /// Saves changes to the selected student. With two‑way binding, updates are automatic.
-        /// </summary>
         private void UpdateStudent()
         {
             SaveStudentsAsync();
+            SimpleLogger.LogInfo("Updated student information.");
         }
 
-        /// <summary>
-        /// Searches the Students collection by MSSV, HoTen, or Khoa based on the SearchText.
-        /// </summary>
         private void SearchStudent()
         {
             var filtered = Students.Where(s =>
@@ -470,74 +427,33 @@ namespace StudentManagementApp.ViewModels
             {
                 Students.Add(s);
             }
+            SimpleLogger.LogInfo($"Search completed with {filtered.Count} results.");
         }
-        //Export the current student list to a JSON file.
-        //private async Task ExportToJsonAsync()
-        //{
-        //    Debug.WriteLine("Export Json ne");
-        //    try
-        //    {
-        //        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-        //        StorageFile file = await localFolder.CreateFileAsync("students_export.json", CreationCollisionOption.ReplaceExisting);
-        //        using (Stream stream = await file.OpenStreamForWriteAsync())
-        //        {
-        //            var options = new JsonSerializerOptions { WriteIndented = true };
-        //            await JsonSerializer.SerializeAsync(stream, Students.ToList(), options);
-        //        }
-        //        Debug.WriteLine("Exported JSON successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"Error exporting JSON: {ex.Message}");
-        //    }
-        //}
+
         private async Task ExportToJsonAsync()
         {
             try
             {
-                // Get the local app data folder path using .NET APIs.
+                // Use .NET file I/O to export JSON.
                 string localFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 string filePath = Path.Combine(localFolderPath, "students_export.json");
 
                 var options = new JsonSerializerOptions { WriteIndented = true };
 
-                // Create or overwrite the file.
                 using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
                 {
                     await JsonSerializer.SerializeAsync(stream, Students.ToList(), options);
                 }
                 Debug.WriteLine($"Exported JSON successfully to {filePath}.");
+                SimpleLogger.LogInfo($"Exported JSON successfully to {filePath}.");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error exporting JSON: {ex.Message}");
+                SimpleLogger.LogError($"Error exporting JSON: {ex.Message}");
             }
         }
 
-
-
-
-        // Export the current student list to a CSV file.
-        //private async Task ExportToCsvAsync()
-        //{
-        //    try
-        //    {
-        //        StringBuilder csvContent = new StringBuilder();
-        //        csvContent.AppendLine("MSSV,HoTen,NgaySinh,GioiTinh,Khoa,KhoaHoc,ChuongTrinh,DiaChi,Email,SoDienThoai,TinhTrang");
-        //        foreach (var student in Students)
-        //        {
-        //            csvContent.AppendLine($"{student.MSSV},{student.HoTen},{student.NgaySinh:yyyy-MM-dd},{student.GioiTinh},{student.Khoa},{student.KhoaHoc},{student.ChuongTrinh},{student.DiaChi},{student.Email},{student.SoDienThoai},{student.TinhTrang}");
-        //        }
-        //        StorageFolder localFolder = ApplicationData.Current.LocalFolder;
-        //        StorageFile file = await localFolder.CreateFileAsync("students_export.csv", CreationCollisionOption.ReplaceExisting);
-        //        await FileIO.WriteTextAsync(file, csvContent.ToString());
-        //        Debug.WriteLine("Exported CSV successfully.");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine($"Error exporting CSV: {ex.Message}");
-        //    }
-        //}
         private async Task ExportToCsvAsync()
         {
             try
@@ -552,23 +468,17 @@ namespace StudentManagementApp.ViewModels
                 string localFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 string filePath = Path.Combine(localFolderPath, "students_export.csv");
 
-                // Write CSV content to file.
                 await File.WriteAllTextAsync(filePath, csvContent.ToString());
                 Debug.WriteLine($"Exported CSV successfully to {filePath}.");
+                SimpleLogger.LogInfo($"Exported CSV successfully to {filePath}.");
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error exporting CSV: {ex.Message}");
+                SimpleLogger.LogError($"Error exporting CSV: {ex.Message}");
             }
         }
 
-
-
-
-
-        /// <summary>
-        /// Helper method to notify commands that depend on the validity of SelectedStudent.
-        /// </summary>
         private void RaiseCommandCanExecuteChanged()
         {
             (AddStudentCommand as CustomRelayCommand)?.RaiseCanExecuteChanged();
