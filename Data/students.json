@@ -8,9 +8,9 @@
     "khoaHoc": "2016",
     "chuongTrinh": "Chính quy",
     "diaChi": "123 Đường ABC",
-    "email": "nguyenvana@example.com",
-    "soDienThoai": "0123456789",
-    "tinhTrang": "Đang học"
+    "email": "nguyenvana@student.university.edu.vn",
+    "soDienThoai": "0923456789",
+    "tinhTrang": "Tốt nghiệp"
   },
   {
     "mssv": "SV002",
@@ -21,9 +21,9 @@
     "khoaHoc": "2017",
     "chuongTrinh": "Chính quy",
     "diaChi": "456 Đường DEF",
-    "email": "tranthib@example.com",
+    "email": "tranthib@student.university.edu.vn",
     "soDienThoai": "0987654321",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "Bảo lưu"
   },
   {
     "mssv": "SV003",
@@ -34,8 +34,8 @@
     "khoaHoc": "2015",
     "chuongTrinh": "Chính quy",
     "diaChi": "789 Đường GHI",
-    "email": "levanc@example.com",
-    "soDienThoai": "0123456780",
+    "email": "levanc@student.university.edu.vn",
+    "soDienThoai": "0323456780",
     "tinhTrang": "Đang học"
   }
 ]

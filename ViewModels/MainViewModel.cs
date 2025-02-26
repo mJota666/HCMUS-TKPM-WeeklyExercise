@@ -38,6 +38,25 @@ namespace StudentManagementApp.ViewModels
         private static MainViewModel _instance = new MainViewModel();
         public static MainViewModel Instance => _instance;
 
+        // Configurable business rule properties (only defined once).
+        public string AllowedEmailDomain { get; set; } = "@student.university.edu.vn";
+        public string PhoneRegexPattern { get; set; } = @"^(\+84\d{9}|0[35789]\d{8})$";
+
+        // For status transitions, store the original status.
+        private string _originalStudentStatus = string.Empty;
+        public string OriginalStudentStatus
+        {
+            get => _originalStudentStatus;
+            set
+            {
+                if (_originalStudentStatus != value)
+                {
+                    _originalStudentStatus = value;
+                    OnPropertyChanged(nameof(OriginalStudentStatus));
+                }
+            }
+        }
+
         private readonly StudentDataService _dataService;
         private readonly string _jsonFilePath = "Data/students.json";
         private readonly DispatcherQueue _dispatcherQueue;
@@ -57,7 +76,8 @@ namespace StudentManagementApp.ViewModels
         public ObservableCollection<string> StudentStatus { get; set; } = new ObservableCollection<string>
         {
             "Đang học",
-            "Đã tốt nghiệp"
+            "Tốt nghiệp",
+            "Bảo lưu", "Tốt nghiệp", "Đình chỉ"
         };
 
         public ObservableCollection<string> Programs { get; set; } = new ObservableCollection<string>
@@ -83,6 +103,8 @@ namespace StudentManagementApp.ViewModels
                 if (_selectedStudent != null)
                 {
                     _selectedStudent.PropertyChanged += SelectedStudent_PropertyChanged;
+                    // When selecting a student, store the original status.
+                    OriginalStudentStatus = _selectedStudent.TinhTrang;
                 }
                 Debug.WriteLine("SelectedStudent changed");
                 SimpleLogger.LogInfo("SelectedStudent changed.");
@@ -227,7 +249,7 @@ namespace StudentManagementApp.ViewModels
             SearchStudentCommand = new CustomRelayCommand(o => SearchStudent());
             LoadStudentsCommand = new CustomRelayCommand(async o => await LoadStudentsAsync());
 
-            // Initialize lookup commands.
+            // Initialize lookup commands for Faculty.
             AddFacultyCommand = new CustomRelayCommand(o =>
             {
                 if (o is string newFaculty && !string.IsNullOrWhiteSpace(newFaculty))
@@ -252,6 +274,8 @@ namespace StudentManagementApp.ViewModels
                     }
                 }
             });
+
+            // Initialize lookup commands for Program.
             AddProgramCommand = new CustomRelayCommand(o =>
             {
                 if (o is string newProgram && !string.IsNullOrWhiteSpace(newProgram))
@@ -276,6 +300,8 @@ namespace StudentManagementApp.ViewModels
                     }
                 }
             });
+
+            // Initialize lookup commands for Student Status.
             AddStudentStatusCommand = new CustomRelayCommand(o =>
             {
                 if (o is string newStatus && !string.IsNullOrWhiteSpace(newStatus))
@@ -341,19 +367,58 @@ namespace StudentManagementApp.ViewModels
         private bool CanAddOrUpdateStudent()
         {
             Debug.WriteLine("Validating input for Add/Update");
+            Debug.WriteLine(1);
             if (SelectedStudent == null)
                 return false;
+            Debug.WriteLine(2);
 
             if (string.IsNullOrWhiteSpace(SelectedStudent.MSSV) ||
                 string.IsNullOrWhiteSpace(SelectedStudent.HoTen) ||
                 SelectedStudent.NgaySinh == default)
                 return false;
+            Debug.WriteLine(3);
 
-            if (!Regex.IsMatch(SelectedStudent.Email ?? "", @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            // Email must end with the allowed domain.
+            if (string.IsNullOrWhiteSpace(SelectedStudent.Email) ||
+                !SelectedStudent.Email.EndsWith(AllowedEmailDomain, StringComparison.OrdinalIgnoreCase))
                 return false;
+            Debug.WriteLine(4);
 
-            if (!Regex.IsMatch(SelectedStudent.SoDienThoai ?? "", @"^\d{10,11}$"))
+            // Validate phone number using the configured pattern.
+            if (!Regex.IsMatch(SelectedStudent.SoDienThoai ?? "", PhoneRegexPattern))
                 return false;
+            Debug.WriteLine(5);
+
+            // Business rule for student status transitions.
+            if (!string.IsNullOrEmpty(OriginalStudentStatus))
+            {
+                if (OriginalStudentStatus.Equals("Tốt nghiệp", StringComparison.OrdinalIgnoreCase))
+                {
+                    Debug.WriteLine(6.1);
+
+                    if (!SelectedStudent.TinhTrang.Equals("Tốt nghiệp", StringComparison.OrdinalIgnoreCase))
+                        return false;
+                }
+                else if (OriginalStudentStatus.Equals("Đang học", StringComparison.OrdinalIgnoreCase))
+                {
+                    Debug.WriteLine(6.2);
+
+                    string[] allowedFromDangHoc = { "Bảo lưu", "Tốt nghiệp", "Đình chỉ", "Đang học" };
+                    if (!allowedFromDangHoc.Contains(SelectedStudent.TinhTrang))
+                        return false;
+                }
+                else if (OriginalStudentStatus.Equals("Bảo lưu",StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] allowedFromBaoLuu = { "Đang học", "Đình chỉ", "Bảo lưu" };
+                    if (!allowedFromBaoLuu.Contains(SelectedStudent.TinhTrang))
+                        return false;
+                }
+                else if (OriginalStudentStatus.Equals("Đình chỉ",StringComparison.OrdinalIgnoreCase))
+                {
+                    string[] allowedFromDinhChi = { "Đang học", "Bảo lưu", "Đình Chỉ" };
+                }
+            }
+            Debug.WriteLine(6);
 
             if (!Programs.Contains(SelectedStudent.ChuongTrinh))
                 return false;
@@ -416,28 +481,11 @@ namespace StudentManagementApp.ViewModels
 
         private void SearchStudent()
         {
-            List<Student> filtered;
-            if (SearchText.Contains("+"))
-            {
-                string[] parts = SearchText.Split('+');
-                string param1 = parts[0];
-                string param2 = parts[1];
-                filtered = Students.Where(s =>
-                    ((!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(param1, StringComparison.OrdinalIgnoreCase)) &&
-                    (!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(param2, StringComparison.OrdinalIgnoreCase))) ||
-                    ((!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(param1, StringComparison.OrdinalIgnoreCase)) &&
-                    (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(param2, StringComparison.OrdinalIgnoreCase)))
-                ).ToList();
-            }
-            else
-            {
-                filtered = Students.Where(s =>
-                    (!string.IsNullOrEmpty(s.MSSV) && s.MSSV.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                    (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
-                    (!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
-                ).ToList();
-            }
-
+            var filtered = Students.Where(s =>
+                (!string.IsNullOrEmpty(s.MSSV) && s.MSSV.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrEmpty(s.HoTen) && s.HoTen.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                (!string.IsNullOrEmpty(s.Khoa) && s.Khoa.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+            ).ToList();
 
             Students.Clear();
             foreach (var s in filtered)
@@ -451,7 +499,6 @@ namespace StudentManagementApp.ViewModels
         {
             try
             {
-                // Use .NET file I/O to export JSON.
                 string localFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 string filePath = Path.Combine(localFolderPath, "students_export.json");
 
