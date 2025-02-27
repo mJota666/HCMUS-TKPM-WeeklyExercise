@@ -63,15 +63,19 @@
 
 ### A. Bổ sung Business logic
 
-![](Screenshots/Business1.png)
 
 #### 1. MSSV phải là duy nhất
-
+![](Screenshots/Business1.png)
 #### 2. Email phải thuộc một tên miền `@student.university.edu.vn`
+![](Screenshots/Business23.png)
+![](Screenshots/Business2.png)
 
 #### 3. Số điện thoại có định dạng VN `+84` hoặc `0[3|5|7|8|9]xxxxxxxx`
+![](Screenshots/Business23.png)
+![](Screenshots/Business3.png)
 
 #### 4. Tình trạng sinh viên chỉ có thể thay đổi theo quy tắc:
+![](Screenshots/Business4.png)
 
 - "Đang học"`→`"Bảo lưu"`, `"Đình chỉ"`, `"Tốt nghiệp"`
 - "Bảo lưu"`→`"Đang học"`, `"Đình chỉ"`
