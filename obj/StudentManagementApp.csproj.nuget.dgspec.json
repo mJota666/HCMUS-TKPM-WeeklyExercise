@@ -70,10 +70,18 @@
               "target": "Package",
               "version": "[1.6.240829007, )",
               "versionCentrallyManaged": true
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.4, )",
+              "versionCentrallyManaged": true
             }
           },
           "centralPackageVersions": {
             "CommunityToolkit.Mvvm": "8.3.1",
+            "coverlet.collector": "6.0.4",
             "Microsoft.Web.WebView2": "1.0.2739.15",
             "Microsoft.Windows.SDK.BuildTools": "10.0.26100.1",
             "Microsoft.WindowsAppSDK": "1.6.240829007"
@@ -163,7 +171,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.103\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "D:\\Frameworks\\.NET\\sdk\\9.0.103\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {

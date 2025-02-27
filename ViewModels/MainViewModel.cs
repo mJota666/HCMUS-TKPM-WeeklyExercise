@@ -35,7 +35,7 @@ namespace StudentManagementApp.ViewModels
         }
 
         // Singleton instance.
-        private static MainViewModel _instance = new MainViewModel();
+        public static MainViewModel _instance = new MainViewModel();
         public static MainViewModel Instance => _instance;
 
         // Configurable business rule properties (only defined once).
@@ -43,7 +43,7 @@ namespace StudentManagementApp.ViewModels
         public string PhoneRegexPattern { get; set; } = @"^(\+84\d{9}|0[35789]\d{8})$";
 
         // For status transitions, store the original status.
-        private string _originalStudentStatus = string.Empty;
+        public string _originalStudentStatus = string.Empty;
         public string OriginalStudentStatus
         {
             get => _originalStudentStatus;
@@ -57,9 +57,9 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        private readonly StudentDataService _dataService;
-        private readonly string _jsonFilePath = "Data/students.json";
-        private readonly DispatcherQueue _dispatcherQueue;
+        public readonly StudentDataService _dataService;
+        public readonly string _jsonFilePath = "Data/students.json";
+        public readonly DispatcherQueue _dispatcherQueue;
 
         // Student collection loaded from JSON.
         public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
@@ -89,7 +89,7 @@ namespace StudentManagementApp.ViewModels
         };
 
         // Student management properties.
-        private Student _selectedStudent = new Student();
+        public Student _selectedStudent = new Student();
         public Student SelectedStudent
         {
             get => _selectedStudent;
@@ -113,7 +113,7 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        private string _searchText = string.Empty;
+        public string _searchText = string.Empty;
         public string SearchText
         {
             get => _searchText;
@@ -121,7 +121,7 @@ namespace StudentManagementApp.ViewModels
         }
 
         // Lookup management for Faculty.
-        private string _selectedFaculty = string.Empty;
+        public string _selectedFaculty = string.Empty;
         public string SelectedFaculty
         {
             get => _selectedFaculty;
@@ -136,7 +136,7 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        private string _facultyToRename = string.Empty;
+        public string _facultyToRename = string.Empty;
         public string FacultyToRename
         {
             get => _facultyToRename;
@@ -151,7 +151,7 @@ namespace StudentManagementApp.ViewModels
         }
 
         // Lookup management for Program.
-        private string _selectedProgram = string.Empty;
+        public string _selectedProgram = string.Empty;
         public string SelectedProgram
         {
             get => _selectedProgram;
@@ -166,7 +166,7 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        private string _programToRename = string.Empty;
+        public string _programToRename = string.Empty;
         public string ProgramToRename
         {
             get => _programToRename;
@@ -181,7 +181,7 @@ namespace StudentManagementApp.ViewModels
         }
 
         // Lookup management for Student Status.
-        private string _selectedStudentStatus = string.Empty;
+        public string _selectedStudentStatus = string.Empty;
         public string SelectedStudentStatus
         {
             get => _selectedStudentStatus;
@@ -196,7 +196,7 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        private string _studentStatusToRename = string.Empty;
+        public string _studentStatusToRename = string.Empty;
         public string StudentStatusToRename
         {
             get => _studentStatusToRename;
@@ -335,14 +335,14 @@ namespace StudentManagementApp.ViewModels
             Task.Run(async () => await LoadStudentsAsync());
         }
 
-        private void SelectedStudent_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+        public void SelectedStudent_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             Debug.WriteLine($"Property '{e.PropertyName}' changed on SelectedStudent.");
             SimpleLogger.LogInfo($"Property '{e.PropertyName}' changed on SelectedStudent.");
             RaiseCommandCanExecuteChanged();
         }
 
-        private async Task LoadStudentsAsync()
+        public async Task LoadStudentsAsync()
         {
             var students = await _dataService.LoadStudentsAsync();
             _dispatcherQueue.TryEnqueue(() =>
@@ -357,14 +357,14 @@ namespace StudentManagementApp.ViewModels
             SimpleLogger.LogInfo($"Loaded {students.Count} students.");
         }
 
-        private async void SaveStudentsAsync()
+        public async void SaveStudentsAsync()
         {
             await _dataService.SaveStudentsAsync(Students.ToList());
             Debug.WriteLine("Saving Successfully!");
             SimpleLogger.LogInfo($"Saved {Students.Count} students successfully.");
         }
 
-        private bool CanAddOrUpdateStudent()
+        public bool CanAddOrUpdateStudent()
         {
             Debug.WriteLine("Validating input for Add/Update");
             Debug.WriteLine(1);
@@ -434,7 +434,7 @@ namespace StudentManagementApp.ViewModels
             return true;
         }
 
-        private void AddStudent()
+        public void AddStudent()
         {
             if (Students.Any(s => s.MSSV == SelectedStudent.MSSV))
             {
@@ -463,7 +463,7 @@ namespace StudentManagementApp.ViewModels
             SimpleLogger.LogInfo($"Added new student with MSSV: {newStudent.MSSV}");
         }
 
-        private void DeleteStudent()
+        public void DeleteStudent()
         {
             if (SelectedStudent != null)
             {
@@ -473,13 +473,13 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        private void UpdateStudent()
+        public void UpdateStudent()
         {
             SaveStudentsAsync();
             SimpleLogger.LogInfo("Updated student information.");
         }
 
-        private void SearchStudent()
+        public void SearchStudent()
         {
             var filtered = Students.Where(s =>
                 (!string.IsNullOrEmpty(s.MSSV) && s.MSSV.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
@@ -495,7 +495,7 @@ namespace StudentManagementApp.ViewModels
             SimpleLogger.LogInfo($"Search completed with {filtered.Count} results.");
         }
 
-        private async Task ExportToJsonAsync()
+        public async Task ExportToJsonAsync()
         {
             try
             {
@@ -518,7 +518,7 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        private async Task ExportToCsvAsync()
+        public async Task ExportToCsvAsync()
         {
             try
             {
@@ -543,7 +543,7 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        private void RaiseCommandCanExecuteChanged()
+        public void RaiseCommandCanExecuteChanged()
         {
             (AddStudentCommand as CustomRelayCommand)?.RaiseCanExecuteChanged();
             (UpdateStudentCommand as CustomRelayCommand)?.RaiseCanExecuteChanged();
