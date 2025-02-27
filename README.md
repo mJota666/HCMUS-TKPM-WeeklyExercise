@@ -58,3 +58,26 @@
 
 - Version và ngày Build được thể hiện ở trên cùng màn hình.
   ![Logging mechanism](Screenshots/Version.png)
+
+## EX03:
+
+### A. Bổ sung Business logic
+
+![](Screenshots/Business1.png)
+
+#### 1. MSSV phải là duy nhất
+
+#### 2. Email phải thuộc một tên miền `@student.university.edu.vn`
+
+#### 3. Số điện thoại có định dạng VN `+84` hoặc `0[3|5|7|8|9]xxxxxxxx`
+
+#### 4. Tình trạng sinh viên chỉ có thể thay đổi theo quy tắc:
+
+- "Đang học"`→`"Bảo lưu"`, `"Đình chỉ"`, `"Tốt nghiệp"`
+- "Bảo lưu"`→`"Đang học"`, `"Đình chỉ"`
+- "Đình chỉ"`→`"Bảo lưu"`, `"Đang học"`
+- "Tốt nghiệp" -> "Tốt nghiệp", không thể đổi sang mode nào khác
+
+### B. Unit testing:
+
+- Báo cáo trong folder Reports.

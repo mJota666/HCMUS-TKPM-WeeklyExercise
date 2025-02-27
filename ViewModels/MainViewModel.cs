@@ -77,7 +77,8 @@ namespace StudentManagementApp.ViewModels
         {
             "Đang học",
             "Tốt nghiệp",
-            "Bảo lưu", "Tốt nghiệp", "Đình chỉ"
+            "Bảo lưu", 
+            "Đình chỉ"
         };
 
         public ObservableCollection<string> Programs { get; set; } = new ObservableCollection<string>
@@ -367,41 +368,33 @@ namespace StudentManagementApp.ViewModels
         public bool CanAddOrUpdateStudent()
         {
             Debug.WriteLine("Validating input for Add/Update");
-            Debug.WriteLine(1);
             if (SelectedStudent == null)
                 return false;
-            Debug.WriteLine(2);
 
             if (string.IsNullOrWhiteSpace(SelectedStudent.MSSV) ||
                 string.IsNullOrWhiteSpace(SelectedStudent.HoTen) ||
                 SelectedStudent.NgaySinh == default)
                 return false;
-            Debug.WriteLine(3);
 
             // Email must end with the allowed domain.
             if (string.IsNullOrWhiteSpace(SelectedStudent.Email) ||
                 !SelectedStudent.Email.EndsWith(AllowedEmailDomain, StringComparison.OrdinalIgnoreCase))
                 return false;
-            Debug.WriteLine(4);
 
             // Validate phone number using the configured pattern.
             if (!Regex.IsMatch(SelectedStudent.SoDienThoai ?? "", PhoneRegexPattern))
                 return false;
-            Debug.WriteLine(5);
 
             // Business rule for student status transitions.
             if (!string.IsNullOrEmpty(OriginalStudentStatus))
             {
                 if (OriginalStudentStatus.Equals("Tốt nghiệp", StringComparison.OrdinalIgnoreCase))
                 {
-                    Debug.WriteLine(6.1);
-
                     if (!SelectedStudent.TinhTrang.Equals("Tốt nghiệp", StringComparison.OrdinalIgnoreCase))
                         return false;
                 }
                 else if (OriginalStudentStatus.Equals("Đang học", StringComparison.OrdinalIgnoreCase))
                 {
-                    Debug.WriteLine(6.2);
 
                     string[] allowedFromDangHoc = { "Bảo lưu", "Tốt nghiệp", "Đình chỉ", "Đang học" };
                     if (!allowedFromDangHoc.Contains(SelectedStudent.TinhTrang))
@@ -418,7 +411,6 @@ namespace StudentManagementApp.ViewModels
                     string[] allowedFromDinhChi = { "Đang học", "Bảo lưu", "Đình Chỉ" };
                 }
             }
-            Debug.WriteLine(6);
 
             if (!Programs.Contains(SelectedStudent.ChuongTrinh))
                 return false;
