@@ -65,6 +65,8 @@
 
 #### 1. MSSV phải là duy nhất
 
+#### 1. MSSV phải là duy nhất
+
 ![](Screenshots/Business1.png)
 
 #### 2. Email phải thuộc một tên miền `@student.university.edu.vn`
