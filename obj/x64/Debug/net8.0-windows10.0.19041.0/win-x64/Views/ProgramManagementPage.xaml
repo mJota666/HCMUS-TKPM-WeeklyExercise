@@ -23,17 +23,23 @@
                        FontWeight="Bold"/>
 
             <!-- Back button-->
-            <Button x:ConnectionId='2' Content="Back"
+			<StackPanel Orientation="Horizontal" Spacing="10">
+				<Button x:ConnectionId='5' Content="Back"
                                             />
+				<!-- Delete Button -->
+				<Button Content="Delete"
+                        Command="{Binding DeleteProgramCommand}" />
+			</StackPanel>
+
             <!-- List current Programs -->
-            <ListView x:ConnectionId='3' ItemsSource="{Binding Programs}"
+            <ListView x:ConnectionId='2' ItemsSource="{Binding Programs}"
                       SelectedItem="{Binding SelectedProgram, Mode=TwoWay}"
                       x:Name="ProgramListView"/>
 
             <!-- Section for adding new Program -->
             <TextBlock Text="Add New Program:"
                        FontWeight="SemiBold"/>
-            <TextBox x:ConnectionId='4' x:Name="NewProgramTextBox"
+            <TextBox x:ConnectionId='3' x:Name="NewProgramTextBox"
                      Width="250"
                      PlaceholderText="New Program Name"/>
             <Button Content="Add Program"
@@ -43,7 +49,7 @@
             <!-- Section for renaming the selected Program -->
             <TextBlock Text="Rename Selected Program"
                        FontWeight="SemiBold"/>
-            <TextBox x:ConnectionId='5' x:Name="RenameProgramTextBox"
+            <TextBox x:ConnectionId='4' x:Name="RenameProgramTextBox"
                      Width="250"
                      Text="{Binding ProgramToRename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      PlaceholderText="New name for selected program"/>

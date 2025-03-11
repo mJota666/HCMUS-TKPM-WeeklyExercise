@@ -23,8 +23,14 @@
                        FontWeight="Bold"/>
 
             <!-- Back button-->
-            <Button Content="Back"
+			<StackPanel Orientation="Horizontal" Spacing="10">
+				<Button Content="Back"
                     Click="BackButton_Click"/>
+				<!-- Delete Button -->
+				<Button Content="Delete"
+                        Command="{Binding DeleteProgramCommand}" />
+			</StackPanel>
+
             <!-- List current Programs -->
             <ListView ItemsSource="{Binding Programs}"
                       SelectedItem="{Binding SelectedProgram, Mode=TwoWay}"

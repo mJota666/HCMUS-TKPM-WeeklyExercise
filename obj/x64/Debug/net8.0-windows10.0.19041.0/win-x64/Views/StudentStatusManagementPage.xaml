@@ -18,15 +18,21 @@
         <StackPanel Grid.Row="1" Padding="20"
                     Spacing="10">
             <!-- Back button -->
-            <Button x:ConnectionId='2' Content="Back"                          />
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button x:ConnectionId='5' Content="Back"
+                                            />
+                <!-- Delete Button -->
+                <Button Content="Delete"
+                        Command="{Binding DeleteStudentStatusCommand}" />
+            </StackPanel>
             <!-- List current Student Status -->
-            <ListView x:ConnectionId='3' ItemsSource="{Binding StudentStatus}"
+            <ListView x:ConnectionId='2' ItemsSource="{Binding StudentStatus}"
                       SelectedItem="{Binding SelectedStudentStatus, Mode=TwoWay}"
                       x:Name="FacultyListView"/>
             <!-- Section for adding new Student Status -->
             <TextBlock Text="Add Student Status Name" 
                        FontWeight="SemiBold"/>
-            <TextBox x:ConnectionId='4' x:Name="NewStudentStatusTextBox"
+            <TextBox x:ConnectionId='3' x:Name="NewStudentStatusTextBox"
                      Width="250"
                      PlaceholderText="New Student Status Name"/>
             <Button Content="Add Student Status" 
@@ -34,7 +40,7 @@
                     CommandParameter="{Binding Text, ElementName=NewStudentStatusTextBox}" />
                 <!-- Section for renaming the selected Student Status -->
             <TextBlock Text="Rename Student Status" FontWeight="SemiBold"/>
-            <TextBox x:ConnectionId='5' x:Name="RenameStudentStatusTextBox"
+            <TextBox x:ConnectionId='4' x:Name="RenameStudentStatusTextBox"
                      Width="250"
                      Text="{Binding StudentStatusToRename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      PlaceholderText="Rename Student Status Name"/>

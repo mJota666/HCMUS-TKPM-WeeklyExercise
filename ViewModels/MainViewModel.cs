@@ -366,8 +366,8 @@ namespace StudentManagementApp.ViewModels
         }
         private bool CanDeleteFaculty()
         {
-            if (string.IsNullOrEmpty(SelectedFaculty))
-                return false;
+            //if (string.IsNullOrEmpty(SelectedFaculty))
+            //    return false;
              return !Students.Any(s => s.Khoa.Equals(SelectedFaculty, StringComparison.OrdinalIgnoreCase));
         }
 

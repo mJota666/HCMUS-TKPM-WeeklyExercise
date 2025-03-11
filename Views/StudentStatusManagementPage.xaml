@@ -18,7 +18,13 @@
         <StackPanel Grid.Row="1" Padding="20"
                     Spacing="10">
             <!-- Back button -->
-            <Button Content="Back" Click="BackButton_Click" />
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Back"
+                    Click="BackButton_Click"/>
+                <!-- Delete Button -->
+                <Button Content="Delete"
+                        Command="{Binding DeleteStudentStatusCommand}" />
+            </StackPanel>
             <!-- List current Student Status -->
             <ListView ItemsSource="{Binding StudentStatus}"
                       SelectedItem="{Binding SelectedStudentStatus, Mode=TwoWay}"
