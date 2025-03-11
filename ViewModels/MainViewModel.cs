@@ -18,6 +18,8 @@ using CustomRelayCommand = StudentManagementApp.Utilities.RelayCommand;
 using System.Text.Json;
 using Windows.Storage;
 
+using StudentManagementApp.Services;
+
 namespace StudentManagementApp.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
@@ -38,11 +40,11 @@ namespace StudentManagementApp.ViewModels
         public static MainViewModel _instance = new MainViewModel();
         public static MainViewModel Instance => _instance;
 
-        // Configurable business rule properties (only defined once).
+        // Configurable business rule properties.
         public string AllowedEmailDomain { get; set; } = "@student.university.edu.vn";
         public string PhoneRegexPattern { get; set; } = @"^(\+84\d{9}|0[35789]\d{8})$";
 
-        // For status transitions, store the original status.
+        // For status transitions.
         public string _originalStudentStatus = string.Empty;
         public string OriginalStudentStatus
         {
@@ -57,9 +59,13 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
+        // Data service and dispatcher.
         public readonly StudentDataService _dataService;
         public readonly string _jsonFilePath = "Data/students.json";
         public readonly DispatcherQueue _dispatcherQueue;
+
+        // NEW: Deletion service to enforce deletion time window.
+        private readonly DeletionService _deletionService;
 
         // Student collection loaded from JSON.
         public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
@@ -77,7 +83,7 @@ namespace StudentManagementApp.ViewModels
         {
             "Đang học",
             "Tốt nghiệp",
-            "Bảo lưu", 
+            "Bảo lưu",
             "Đình chỉ"
         };
 
@@ -239,6 +245,9 @@ namespace StudentManagementApp.ViewModels
             // Initialize the data service.
             _dataService = new StudentDataService(_jsonFilePath);
 
+            // Initialize the deletion service with a 30-minute window.
+            _deletionService = new DeletionService(TimeSpan.FromMinutes(30));
+
             // Create a new student for data entry.
             SelectedStudent = new Student();
 
@@ -376,12 +385,10 @@ namespace StudentManagementApp.ViewModels
                 SelectedStudent.NgaySinh == default)
                 return false;
 
-            // Email must end with the allowed domain.
             if (string.IsNullOrWhiteSpace(SelectedStudent.Email) ||
                 !SelectedStudent.Email.EndsWith(AllowedEmailDomain, StringComparison.OrdinalIgnoreCase))
                 return false;
 
-            // Validate phone number using the configured pattern.
             if (!Regex.IsMatch(SelectedStudent.SoDienThoai ?? "", PhoneRegexPattern))
                 return false;
 
@@ -395,21 +402,17 @@ namespace StudentManagementApp.ViewModels
                 }
                 else if (OriginalStudentStatus.Equals("Đang học", StringComparison.OrdinalIgnoreCase))
                 {
-
                     string[] allowedFromDangHoc = { "Bảo lưu", "Tốt nghiệp", "Đình chỉ", "Đang học" };
                     if (!allowedFromDangHoc.Contains(SelectedStudent.TinhTrang))
                         return false;
                 }
-                else if (OriginalStudentStatus.Equals("Bảo lưu",StringComparison.OrdinalIgnoreCase))
+                else if (OriginalStudentStatus.Equals("Bảo lưu", StringComparison.OrdinalIgnoreCase))
                 {
                     string[] allowedFromBaoLuu = { "Đang học", "Đình chỉ", "Bảo lưu" };
                     if (!allowedFromBaoLuu.Contains(SelectedStudent.TinhTrang))
                         return false;
                 }
-                else if (OriginalStudentStatus.Equals("Đình chỉ",StringComparison.OrdinalIgnoreCase))
-                {
-                    string[] allowedFromDinhChi = { "Đang học", "Bảo lưu", "Đình Chỉ" };
-                }
+                // You may add additional status transition rules here.
             }
 
             if (!Programs.Contains(SelectedStudent.ChuongTrinh))
@@ -428,7 +431,7 @@ namespace StudentManagementApp.ViewModels
 
         public void AddStudent()
         {
-            if (Students.Any(s => s.MSSV == SelectedStudent.MSSV))
+            if (Students.Any(s => s.MSSV.Equals(SelectedStudent.MSSV, StringComparison.OrdinalIgnoreCase)))
             {
                 Debug.WriteLine("Duplicate MSSV found. Student not added.");
                 SimpleLogger.LogWarning($"Duplicate MSSV {SelectedStudent.MSSV} found. Student not added.");
@@ -447,7 +450,9 @@ namespace StudentManagementApp.ViewModels
                 DiaChi = SelectedStudent.DiaChi,
                 Email = SelectedStudent.Email,
                 SoDienThoai = SelectedStudent.SoDienThoai,
-                TinhTrang = SelectedStudent.TinhTrang
+                TinhTrang = SelectedStudent.TinhTrang,
+                // Set creation time when adding a new student.
+                CreationTime = DateTime.Now
             };
 
             Students.Add(newStudent);
@@ -459,6 +464,15 @@ namespace StudentManagementApp.ViewModels
         {
             if (SelectedStudent != null)
             {
+                // Enforce deletion rule: Only allow deletion if CreationTime is within the allowed window.
+                // _deletionService is configured for 30 minutes.
+                if (!_deletionService.CanDeleteStudent(SelectedStudent))
+                {
+                    Debug.WriteLine("Deletion not allowed: The student was created more than 30 minutes ago.");
+                    SimpleLogger.LogWarning("Deletion not allowed: The student was created more than 30 minutes ago.");
+                    return;
+                }
+
                 Students.Remove(SelectedStudent);
                 SaveStudentsAsync();
                 SimpleLogger.LogInfo("Deleted a student.");
@@ -520,10 +534,8 @@ namespace StudentManagementApp.ViewModels
                 {
                     csvContent.AppendLine($"{student.MSSV},{student.HoTen},{student.NgaySinh:yyyy-MM-dd},{student.GioiTinh},{student.Khoa},{student.KhoaHoc},{student.ChuongTrinh},{student.DiaChi},{student.Email},{student.SoDienThoai},{student.TinhTrang}");
                 }
-
                 string localFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 string filePath = Path.Combine(localFolderPath, "students_export.csv");
-
                 await File.WriteAllTextAsync(filePath, csvContent.ToString());
                 Debug.WriteLine($"Exported CSV successfully to {filePath}.");
                 SimpleLogger.LogInfo($"Exported CSV successfully to {filePath}.");

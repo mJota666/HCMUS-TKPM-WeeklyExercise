@@ -13,6 +13,7 @@
           "Microsoft.Web.WebView2": "1.0.2739.15",
           "Microsoft.Windows.SDK.BuildTools": "10.0.26100.1",
           "Microsoft.WindowsAppSDK": "1.6.240829007",
+          "coverlet.collector": "6.0.4",
           "Microsoft.Web.WebView2.Core.Projection": "1.0.2739.15",
           "runtimepack.Microsoft.NETCore.App.Runtime.win-x64": "8.0.13",
           "runtimepack.Microsoft.Windows.SDK.NET.Ref": "10.0.19041.38"
@@ -761,6 +762,7 @@
           }
         }
       },
+      "coverlet.collector/6.0.4": {},
       "Microsoft.Web.WebView2/1.0.2739.15": {
         "native": {
           "runtimes/win-x64/native/WebView2Loader.dll": {
@@ -878,6 +880,13 @@
       "sha512": "sha512-Fuqjp5uYzHEdrRxsZlY0EqvFX9pF2v0cZN+zfso44lVLI3wZa8Nb9jdcBoXbHxiRSU3hEDhHUqh2fM8znzodzg==",
       "path": "communitytoolkit.mvvm/8.3.1",
       "hashPath": "communitytoolkit.mvvm.8.3.1.nupkg.sha512"
+    },
+    "coverlet.collector/6.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lkhqpF8Pu2Y7IiN7OntbsTtdbpR1syMsm2F3IgX6ootA4ffRqWL5jF7XipHuZQTdVuWG/gVAAcf8mjk8Tz0xPg==",
+      "path": "coverlet.collector/6.0.4",
+      "hashPath": "coverlet.collector.6.0.4.nupkg.sha512"
     },
     "Microsoft.Web.WebView2/1.0.2739.15": {
       "type": "package",

@@ -1,51 +1,4 @@
-﻿//using System;
-//using System.ComponentModel;
-//using System.Text.Json.Serialization;
-
-//namespace StudentManagementApp.Models
-//{
-//    public class Student
-//    {
-//        [JsonPropertyName("mssv")]
-//        public string MSSV { get; set; }
-
-//        [JsonPropertyName("hoTen")]
-//        public string HoTen { get; set; }
-
-//        [JsonPropertyName("ngaySinh")]
-//        public DateTime NgaySinh { get; set; }
-
-//        [JsonPropertyName("gioiTinh")]
-//        public string GioiTinh { get; set; }
-
-//        [JsonPropertyName("khoa")]
-//        public string Khoa { get; set; }
-
-//        [JsonPropertyName("khoaHoc")]
-//        public string KhoaHoc { get; set; }
-
-//        [JsonPropertyName("chuongTrinh")]
-//        public string ChuongTrinh { get; set; }
-
-//        [JsonPropertyName("diaChi")]
-//        public string DiaChi { get; set; }
-
-//        [JsonPropertyName("email")]
-//        public string Email { get; set; }
-
-//        [JsonPropertyName("soDienThoai")]
-//        public string SoDienThoai { get; set; }
-
-//        [JsonPropertyName("tinhTrang")]
-//        public string TinhTrang { get; set; }
-
-//        public event PropertyChangedEventHandler? PropertyChanged;
-
-//        protected void OnPropertyChanged(string propertyName) =>
-//            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-//    }
-//}
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
 
@@ -214,6 +167,22 @@ namespace StudentManagementApp.Models
                 {
                     _tinhTrang = value;
                     OnPropertyChanged(nameof(TinhTrang));
+                }
+            }
+        }
+
+        // New: Property to track when the student was created.
+        private DateTime _creationTime = DateTime.Now;
+        [JsonPropertyName("creationTime")]
+        public DateTime CreationTime
+        {
+            get => _creationTime;
+            set
+            {
+                if (_creationTime != value)
+                {
+                    _creationTime = value;
+                    OnPropertyChanged(nameof(CreationTime));
                 }
             }
         }
