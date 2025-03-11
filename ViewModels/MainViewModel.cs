@@ -42,7 +42,7 @@ namespace StudentManagementApp.ViewModels
         public string AllowedEmailDomain { get; set; } = "@student.university.edu.vn";
         public string PhoneRegexPattern { get; set; } = @"^(\+84\d{9}|0[35789]\d{8})$";
 
-        // New: Flag to enable/disable business rules.
+        // Flag to enable/disable business rules.
         public bool IsBusinessRulesEnabled { get; set; } = true;
 
         // For status transitions.
@@ -64,8 +64,11 @@ namespace StudentManagementApp.ViewModels
         public readonly string _jsonFilePath = "Data/students.json";
         public readonly DispatcherQueue _dispatcherQueue;
 
-        // NEW: Deletion service to enforce deletion time window.
+        // Deletion service to enforce deletion time window.
         private readonly DeletionService _deletionService;
+
+        // NEW: Export confirmation service (for HTML/Markdown).
+        private readonly ExportConfirmationService _exportConfirmationService = new ExportConfirmationService();
 
         // Student collection loaded from JSON.
         public ObservableCollection<Student> Students { get; set; } = new ObservableCollection<Student>();
@@ -236,6 +239,9 @@ namespace StudentManagementApp.ViewModels
         // Commands for Export.
         public ICommand ExportJsonCommand { get; }
         public ICommand ExportCsvCommand { get; }
+        // NEW: Commands for exporting confirmation letters.
+        public ICommand ExportConfirmationHtmlCommand { get; }
+        public ICommand ExportConfirmationMarkdownCommand { get; }
 
         public MainViewModel()
         {
@@ -341,6 +347,10 @@ namespace StudentManagementApp.ViewModels
             ExportJsonCommand = new CustomRelayCommand(async o => await ExportToJsonAsync());
             ExportCsvCommand = new CustomRelayCommand(async o => await ExportToCsvAsync());
 
+            // NEW: Initialize confirmation export commands.
+            ExportConfirmationHtmlCommand = new CustomRelayCommand(async o => await ExportConfirmationToHtmlAsync());
+            ExportConfirmationMarkdownCommand = new CustomRelayCommand(async o => await ExportConfirmationToMarkdownAsync());
+
             // Load initial student data on a background thread.
             Task.Run(async () => await LoadStudentsAsync());
         }
@@ -385,7 +395,7 @@ namespace StudentManagementApp.ViewModels
                 SelectedStudent.NgaySinh == default)
                 return false;
 
-            // If business rules are disabled, we bypass further validations.
+            // If business rules are disabled, bypass additional validations.
             if (!IsBusinessRulesEnabled)
                 return true;
 
@@ -548,6 +558,48 @@ namespace StudentManagementApp.ViewModels
             {
                 Debug.WriteLine($"Error exporting CSV: {ex.Message}");
                 SimpleLogger.LogError($"Error exporting CSV: {ex.Message}");
+            }
+        }
+
+        // NEW: Export confirmation letter to HTML.
+        public async Task ExportConfirmationToHtmlAsync()
+        {
+            if (SelectedStudent == null)
+                return;
+            try
+            {
+                string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string filePath = Path.Combine(folderPath, "confirmation.html");
+                var exportService = new ExportConfirmationService();
+                await exportService.ExportConfirmationToHtmlAsync(SelectedStudent, filePath);
+                Debug.WriteLine($"Exported confirmation to HTML successfully to {filePath}.");
+                SimpleLogger.LogInfo($"Exported confirmation to HTML successfully to {filePath}.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error exporting confirmation to HTML: {ex.Message}");
+                SimpleLogger.LogError($"Error exporting confirmation to HTML: {ex.Message}");
+            }
+        }
+
+        // NEW: Export confirmation letter to Markdown.
+        public async Task ExportConfirmationToMarkdownAsync()
+        {
+            if (SelectedStudent == null)
+                return;
+            try
+            {
+                string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string filePath = Path.Combine(folderPath, "confirmation.md");
+                var exportService = new ExportConfirmationService();
+                await exportService.ExportConfirmationToMarkdownAsync(SelectedStudent, filePath);
+                Debug.WriteLine($"Exported confirmation to Markdown successfully to {filePath}.");
+                SimpleLogger.LogInfo($"Exported confirmation to Markdown successfully to {filePath}.");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error exporting confirmation to Markdown: {ex.Message}");
+                SimpleLogger.LogError($"Error exporting confirmation to Markdown: {ex.Message}");
             }
         }
 
