@@ -22,18 +22,23 @@
                        FontWeight="Bold"/>
 
             <!-- Back Button -->
-            <Button x:ConnectionId='2' Content="Back"
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button x:ConnectionId='5' Content="Back"
                                             />
+                <!-- Delete Button -->
+                <Button Content="Delete"
+                        Command="{Binding DeleteFacultyCommand}" />
+            </StackPanel>
 
             <!-- List current Faculties -->
-            <ListView x:ConnectionId='3' ItemsSource="{Binding Faculties}"
+            <ListView x:ConnectionId='2' ItemsSource="{Binding Faculties}"
                       SelectedItem="{Binding SelectedFaculty, Mode=TwoWay}"
                       x:Name="FacultyListView"/>
 
             <!-- Section for adding new faculty -->
             <TextBlock Text="Add New Faculty:"
                        FontWeight="SemiBold"/>
-            <TextBox x:ConnectionId='4' x:Name="NewFacultyTextBox"
+            <TextBox x:ConnectionId='3' x:Name="NewFacultyTextBox"
                      Width="250"
                      PlaceholderText="New Faculty Name"/>
             <Button Content="Add Faculty"
@@ -43,7 +48,7 @@
             <!-- Section for renaming the selected faculty -->
             <TextBlock Text="Rename Selected Faculty:"
                        FontWeight="SemiBold"/>
-            <TextBox x:ConnectionId='5' x:Name="RenameFacultyTextBox"
+            <TextBox x:ConnectionId='4' x:Name="RenameFacultyTextBox"
                      Width="250"
                      Text="{Binding FacultyToRename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      PlaceholderText="New name for selected faculty"/>

@@ -22,8 +22,13 @@
                        FontWeight="Bold"/>
 
             <!-- Back Button -->
-            <Button Content="Back"
+            <StackPanel Orientation="Horizontal" Spacing="10">
+                <Button Content="Back"
                     Click="BackButton_Click"/>
+                <!-- Delete Button -->
+                <Button Content="Delete"
+                        Command="{Binding DeleteFacultyCommand}" />
+            </StackPanel>
 
             <!-- List current Faculties -->
             <ListView ItemsSource="{Binding Faculties}"

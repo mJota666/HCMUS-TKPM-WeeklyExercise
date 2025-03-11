@@ -219,6 +219,10 @@ namespace StudentManagementApp.ViewModels
                 }
             }
         }
+        // Commands for Delete
+        public ICommand DeleteFacultyCommand { get; }
+        public ICommand DeleteProgramCommand { get; }
+        public ICommand DeleteStudentStatusCommand { get; }
 
         // Commands for student management.
         public ICommand NewStudentCommand { get; }
@@ -256,6 +260,12 @@ namespace StudentManagementApp.ViewModels
 
             // Create a new student for data entry.
             SelectedStudent = new Student();
+
+            // Delete Logic
+            DeleteFacultyCommand = new CustomRelayCommand(o => DeleteFaculty(), o => CanDeleteFaculty());
+            DeleteProgramCommand = new CustomRelayCommand(o => DeleteProgram(), o => CanDeleteProgram());
+            DeleteStudentStatusCommand = new CustomRelayCommand(o => DeleteStudentStatus(), o => CanDeleteStudentStatus());
+
 
             // Initialize student management commands.
             NewStudentCommand = new CustomRelayCommand(o => SelectedStudent = new Student());
@@ -353,6 +363,73 @@ namespace StudentManagementApp.ViewModels
 
             // Load initial student data on a background thread.
             Task.Run(async () => await LoadStudentsAsync());
+        }
+        private bool CanDeleteFaculty()
+        {
+            if (string.IsNullOrEmpty(SelectedFaculty))
+                return false;
+             return !Students.Any(s => s.Khoa.Equals(SelectedFaculty, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private void DeleteFaculty()
+        {
+            Debug.WriteLine("Debug Delete Faculty !");
+            if (CanDeleteFaculty())
+            {
+                Faculties.Remove(SelectedFaculty);
+                SimpleLogger.LogInfo($"Deleted faculty: {SelectedFaculty}");
+                SelectedFaculty = string.Empty; // Optionally clear the selection.
+            }
+            else
+            {
+                SimpleLogger.LogWarning($"Cannot delete faculty '{SelectedFaculty}': It is referenced by one or more students.");
+            }
+        }
+
+        private bool CanDeleteProgram()
+        {
+            // Only allow deletion if a program is selected and no student is referencing it.
+            //if (string.IsNullOrEmpty(SelectedProgram))
+            //    return false;
+
+            return !Students.Any(s => s.ChuongTrinh.Equals(SelectedProgram, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private void DeleteProgram()
+        {
+            if (CanDeleteProgram())
+            {
+                Programs.Remove(SelectedProgram);
+                SimpleLogger.LogInfo($"Deleted program: {SelectedProgram}");
+                SelectedProgram = string.Empty; // Optionally clear the selection.
+            }
+            else
+            {
+                SimpleLogger.LogWarning($"Cannot delete program '{SelectedProgram}': It is referenced by one or more students.");
+            }
+        }
+
+        private bool CanDeleteStudentStatus()
+        {
+            // Only allow deletion if a student status is selected and no student is referencing it.
+            //if (string.IsNullOrEmpty(SelectedStudentStatus))
+            //    return false;
+
+            return !Students.Any(s => s.TinhTrang.Equals(SelectedStudentStatus, StringComparison.OrdinalIgnoreCase));
+        }
+
+        private void DeleteStudentStatus()
+        {
+            if (CanDeleteStudentStatus())
+            {
+                StudentStatus.Remove(SelectedStudentStatus);
+                SimpleLogger.LogInfo($"Deleted student status: {SelectedStudentStatus}");
+                SelectedStudentStatus = string.Empty; // Optionally clear the selection.
+            }
+            else
+            {
+                SimpleLogger.LogWarning($"Cannot delete student status '{SelectedStudentStatus}': It is referenced by one or more students.");
+            }
         }
 
         public void SelectedStudent_PropertyChanged(object? sender, PropertyChangedEventArgs e)
