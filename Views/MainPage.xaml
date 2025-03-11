@@ -47,13 +47,17 @@
                                         <StackPanel Orientation="Horizontal"
                                                     HorizontalAlignment="Right"
                                                     Margin="10,0,0,0">
-                                                <Button Content="JSON Export"
+                        <CheckBox Content="Enable Business Rules"
+                                  IsChecked="{Binding IsBusinessRulesEnabled, Mode=TwoWay}"
+                                  Margin="10,0,0,0"/>
+                            <Button Content="JSON Export"
                                                         Margin="10,0,0,0"
                                                         Command="{Binding ExportJsonCommand}"/>
                                                 <Button Content="CSV Export"
                                                         Margin="10,0,0,0"
                                                         Command="{Binding ExportCsvCommand}"/>
-                                        </StackPanel>
+  
+                    </StackPanel>
                                 </StackPanel>
 
                                 <Grid HorizontalAlignment="Stretch">

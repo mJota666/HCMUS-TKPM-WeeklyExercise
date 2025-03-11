@@ -18,8 +18,6 @@ using CustomRelayCommand = StudentManagementApp.Utilities.RelayCommand;
 using System.Text.Json;
 using Windows.Storage;
 
-using StudentManagementApp.Services;
-
 namespace StudentManagementApp.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
@@ -44,6 +42,9 @@ namespace StudentManagementApp.ViewModels
         public string AllowedEmailDomain { get; set; } = "@student.university.edu.vn";
         public string PhoneRegexPattern { get; set; } = @"^(\+84\d{9}|0[35789]\d{8})$";
 
+        // New: Flag to enable/disable business rules.
+        public bool IsBusinessRulesEnabled { get; set; } = true;
+
         // For status transitions.
         public string _originalStudentStatus = string.Empty;
         public string OriginalStudentStatus
@@ -59,7 +60,6 @@ namespace StudentManagementApp.ViewModels
             }
         }
 
-        // Data service and dispatcher.
         public readonly StudentDataService _dataService;
         public readonly string _jsonFilePath = "Data/students.json";
         public readonly DispatcherQueue _dispatcherQueue;
@@ -385,10 +385,16 @@ namespace StudentManagementApp.ViewModels
                 SelectedStudent.NgaySinh == default)
                 return false;
 
+            // If business rules are disabled, we bypass further validations.
+            if (!IsBusinessRulesEnabled)
+                return true;
+
+            // Email must end with the allowed domain.
             if (string.IsNullOrWhiteSpace(SelectedStudent.Email) ||
                 !SelectedStudent.Email.EndsWith(AllowedEmailDomain, StringComparison.OrdinalIgnoreCase))
                 return false;
 
+            // Validate phone number using the configured pattern.
             if (!Regex.IsMatch(SelectedStudent.SoDienThoai ?? "", PhoneRegexPattern))
                 return false;
 
@@ -412,7 +418,6 @@ namespace StudentManagementApp.ViewModels
                     if (!allowedFromBaoLuu.Contains(SelectedStudent.TinhTrang))
                         return false;
                 }
-                // You may add additional status transition rules here.
             }
 
             if (!Programs.Contains(SelectedStudent.ChuongTrinh))
@@ -465,7 +470,6 @@ namespace StudentManagementApp.ViewModels
             if (SelectedStudent != null)
             {
                 // Enforce deletion rule: Only allow deletion if CreationTime is within the allowed window.
-                // _deletionService is configured for 30 minutes.
                 if (!_deletionService.CanDeleteStudent(SelectedStudent))
                 {
                     Debug.WriteLine("Deletion not allowed: The student was created more than 30 minutes ago.");
