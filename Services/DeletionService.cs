@@ -17,7 +17,6 @@ namespace StudentManagementApp.Services
         {
             if (student == null)
                 throw new ArgumentNullException(nameof(student));
-            Debug.WriteLine("Xoa ne");
             Debug.WriteLine(DateTime.Now - student.CreationTime);
             Debug.WriteLine(_deletionWindow);
 

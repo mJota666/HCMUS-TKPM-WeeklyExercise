@@ -91,3 +91,42 @@
 ### B. Unit testing:
 
 - Báo cáo trong folder Reports.
+
+## EX04:
+
+### A. Bổ sung tính năng
+
+#### 6. Chỉ được phép xóa sinh viên có creation date/time trong khoảng thời gian nhất định. Ví dụ: 30 phút (configurable)
+
+- Có thể xóa sinh viên trong khoảng thời gian 30P kể từ lúc tạo/nạp data:
+  ![](Screenshots/FunctionCheckDeleteTime.png)
+
+#### 7. Cho phép bật / tắt việc áp dụng các quy định
+
+- Mặc định dạng email là @student.university.edu.vn
+- Bật Business Rule thì không thể format email sai định dạng (Các nút Add và Update bị disabled)
+  ![](Screenshots/TurnOnBR.png)
+- Tắt Business Rule thì có thê format email sai định dạng (Các nút Add và Update được enabled)
+  ![](Screenshots/TurnOffBR.png)
+
+#### 8. Các màn hình cần hiện logo hoặc tên Trường (ít nhất một)
+
+![](Screenshots/Logo.png)
+
+#### 9. Cho phép xóa khoa, xóa tình trạng sinh viên, xóa chương trình đào tạo nếu không có ràng buộc về dữ liệu
+
+- Trước khi xóa khoa Điện tử viễn thông
+  ![](Screenshots/BeforeDeleteFaculty.png)
+- Sau Khi xóa khoa Điện tử viễn thông
+  ![](Screenshots/AfterDeleteFaculty.png)
+- Khoa toán không thể xóa do bộ dữ liệu các sinh viên hiện tại đang học khoa toán.
+- Tương tự với chương trình và tình trạng sinh viên.
+
+#### 10. Xuất giấy xác nhận tình trạng sinh viên ra **HTML/MD/PDF/DOCX** (ít nhất 2 định dạng)
+
+![](Screenshots/ExportHTMLMD.png)
+![](Screenshots/FileExportHTMLMD.png)
+
+### B. Báo cáo Single Responsibility Principle và Don't Repeat Your Self
+
+- Báo cáo trong folder Reports.

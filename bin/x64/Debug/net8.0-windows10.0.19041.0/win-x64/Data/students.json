@@ -1,41 +1,30 @@
-﻿[
-  {
-    "mssv": "SV001",
-    "hoTen": "Nguyễn Văn A",
-    "ngaySinh": "1998-01-01T00:00:00",
-    "gioiTinh": "Nam",
-    "khoa": "Toán",
-    "khoaHoc": "2016",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "123 Đường ABC",
-    "email": "nguyenvana@student.university.edu.vn",
-    "soDienThoai": "0923456789",
-    "tinhTrang": "Tốt nghiệp"
-  },
+[
   {
     "mssv": "SV002",
-    "hoTen": "Trần Thị B",
+    "hoTen": "Tr\u1EA7n Th\u1ECB B",
     "ngaySinh": "1999-02-02T00:00:00",
-    "gioiTinh": "Nữ",
-    "khoa": "Toán",
+    "gioiTinh": "N\u1EEF",
+    "khoa": "To\u00E1n",
     "khoaHoc": "2017",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "456 Đường DEF",
-    "email": "tranthib@student.university.edu.vn",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "456 \u0110\u01B0\u1EDDng DEF",
+    "email": "tranthib@student.university.edu",
     "soDienThoai": "0987654321",
-    "tinhTrang": "Bảo lưu"
+    "tinhTrang": "B\u1EA3o l\u01B0u",
+    "creationTime": "2025-03-11T18:42:58.0657489+07:00"
   },
   {
     "mssv": "SV003",
-    "hoTen": "Lê Văn C",
+    "hoTen": "L\u00EA V\u0103n C",
     "ngaySinh": "1997-03-03T00:00:00",
     "gioiTinh": "Nam",
-    "khoa": "Toán",
+    "khoa": "To\u00E1n",
     "khoaHoc": "2015",
-    "chuongTrinh": "Chính quy",
-    "diaChi": "789 Đường GHI",
+    "chuongTrinh": "Ch\u00EDnh quy",
+    "diaChi": "789 \u0110\u01B0\u1EDDng GHI",
     "email": "levanc@student.university.edu.vn",
     "soDienThoai": "0323456780",
-    "tinhTrang": "Đang học"
+    "tinhTrang": "\u0110ang h\u1ECDc",
+    "creationTime": "2025-03-11T18:42:58.0658342+07:00"
   }
 ]
