@@ -1660,7 +1660,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "D:\\Frameworks\\.NET\\sdk\\9.0.103\\RuntimeIdentifierGraph.json"
       }
     },
     "runtimes": {
